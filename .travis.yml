@@ -12,4 +12,4 @@ before_script:
   - bower install
 after_success:
   - istanbul cover _mocha ./server/**/*.spec.js
-  - codeclimate < ./coverage/lcov.info
+  - codeclimate-test-reporter < ./coverage/lcov.info
