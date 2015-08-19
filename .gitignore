@@ -5,3 +5,6 @@ client/styles/css
 dist/
 .sass-cache/
 docs/
+
+# Istanbul coverage reports
+coverage/
