@@ -3,7 +3,13 @@ node_js:
   - '0.10'
   - '0.11'
   - '0.12'
+services: mongodb
+env:
+  CODECLIMATE_REPO_TOKEN: 2032a887e07b247ef73695c94403cd26eec385be4930c9ac3e2cfcd150a2f63a
 before_script:
   - npm install -g bower gulp
+  - npm install -g istanbul mocha codeclimate-test-reporter
   - bower install
-services: mongodb
+after_success:
+  - istanbul cover _mocha -- -R spec ./test/*.js
+  - codeclimate < ./coverage/lcov.info
