@@ -32,6 +32,10 @@ var all = {
     session: 'super-gol-secret'
   },
 
+  sql: {
+    dialect: 'sqlite'
+  },
+
   // List of user roles
   userRoles: ['guest', 'user', 'admin']
 };
