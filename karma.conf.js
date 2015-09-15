@@ -21,12 +21,10 @@ module.exports = function(config) {
       'client/bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'client/bower_components/lodash/dist/lodash.compat.js',
       'client/bower_components/angular-ui-router/release/angular-ui-router.js',
+      'client/spec/*.js',
       'client/app/app.js',
-      'client/app/app.coffee',
       'client/app/**/*.js',
-      'client/app/**/*.coffee',
       'client/components/**/*.js',
-      'client/components/**/*.coffee',
       'client/app/**/*.jade',
       'client/components/**/*.jade',
       'client/app/**/*.html',
@@ -36,8 +34,7 @@ module.exports = function(config) {
     preprocessors: {
       '**/*.jade': 'ng-jade2js',
       '**/*.html': 'html2js',
-      'client/app/**/*.js': 'babel',
-      '**/*.coffee': 'coffee',
+      'client/app/**/*.js': 'babel'
     },
 
     ngHtml2JsPreprocessor: {
@@ -48,7 +45,7 @@ module.exports = function(config) {
       stripPrefix: 'client/'
     },
 
-    
+
     babelPreprocessor: {
       options: {
         sourceMap: 'inline'
@@ -60,7 +57,7 @@ module.exports = function(config) {
         return file.originalPath;
       }
     },
-    
+
 
     // list of files / patterns to exclude
     exclude: [],
@@ -74,7 +71,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:
