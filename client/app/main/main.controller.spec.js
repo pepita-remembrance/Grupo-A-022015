@@ -1,19 +1,18 @@
 'use strict';
 
 describe('Controller: MainCtrl', function () {
-
-  // load the controller's module
   beforeEach(module('superGolApp'));
 
   var MainCtrl,
       scope,
       $httpBackend;
 
-  // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/things')
-      .respond(['HTML5 Boilerplate', 'AngularJS', 'Karma', 'Express']);
+    $httpBackend.expectGET('/api/imports')
+      .respond([
+        { code: 123145, createdAt: "2015-09-15T05:51:58.976Z" }
+      ]);
 
     scope = $rootScope.$new();
     MainCtrl = $controller('MainCtrl', {
@@ -21,8 +20,8 @@ describe('Controller: MainCtrl', function () {
     });
   }));
 
-  it('should attach a list of things to the scope', function () {
+  it('should attach a list of imports to the scope', function () {
     $httpBackend.flush();
-    expect(scope.awesomeThings.length).toBe(4);
+    expect(scope.imports.length).toBe(1);
   });
 });
