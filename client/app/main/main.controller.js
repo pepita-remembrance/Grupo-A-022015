@@ -2,10 +2,14 @@
 
 angular.module('superGolApp')
   .controller('MainCtrl', function ($scope, $http) {
-    $scope.awesomeThings = [];
+    $scope.imports = [];
 
-    $http.get('/api/things').success(function(awesomeThings) {
-      $scope.awesomeThings = awesomeThings;
-    });
+    const getImports = () =>
+      $http.get('/api/imports').success(function(imports) {
+        $scope.imports = imports;
+      });
 
+    $scope.createImport = () => $http.post('/api/imports', { code: $scope.newImportCode }).then(getImports);
+
+    getImports();
   });

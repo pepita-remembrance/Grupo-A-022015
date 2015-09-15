@@ -3,9 +3,9 @@
 // Development specific configuration
 // ==================================
 module.exports = {
-  // MongoDB connection options
-  mongo: {
-    uri: 'mongodb://localhost/supergol-dev'
+  sql: {
+    dialect: 'sqlite',
+    storage: './db.development.sqlite'
   },
 
   seedDB: true
