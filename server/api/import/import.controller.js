@@ -1,7 +1,7 @@
 'use strict';
 
 import _ from 'lodash';
-import { Import } from '../../models';
+import {Import} from '../../models';
 
 const send = (res, status) => (result) => res.status(status).send(result);
 

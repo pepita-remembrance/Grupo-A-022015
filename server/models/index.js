@@ -3,9 +3,9 @@
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
-import { sql } from '../config/environment';
+import all from '../config/environment/index.js';
 
-const sequelize = new Sequelize(sql.database, sql.username, sql.password, sql);
+const sequelize = new Sequelize(all.sql.database, all.sql.username, all.sql.password, all.sql);
 let db = {};
 
 fs

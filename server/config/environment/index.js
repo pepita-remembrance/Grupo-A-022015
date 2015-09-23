@@ -40,8 +40,7 @@ var all = {
   userRoles: ['guest', 'user', 'admin']
 };
 
-// Export the config object based on the NODE_ENV
-// ==============================================
-module.exports = _.merge(
-  all,
-  require('./' + process.env.NODE_ENV + '.js') || {});
+export default all
+//module.exports = _.merge(
+//  all,
+//  require('./' + process.env.NODE_ENV + '.js') || {});
