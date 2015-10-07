@@ -1,4 +1,5 @@
-angular.module('superGolApp')
+angular
+  .module('superGolApp')
   .config(function ($stateProvider) {
     $stateProvider
       .state('teams', {

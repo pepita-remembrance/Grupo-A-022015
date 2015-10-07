@@ -12,7 +12,8 @@ angular.module('superGolApp', [
       .otherwise('/');
 
     $mdIconProvider
-      .iconSet('social', 'app/assets/svg/social-icons.svg', 24)
+      .iconSet('social',     'app/assets/svg/social-icons.svg', 24)
+      .iconSet('navigation', 'app/assets/svg/navigation-icons.svg', 24)
       .defaultIconSet('app/assets/svg/action-icons.svg', 24);
 
     $locationProvider.html5Mode(true);

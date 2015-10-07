@@ -1,6 +1,13 @@
 'use strict';
 
 angular.module('superGolApp')
-  .controller('TeamsCtrl', function ($scope, $http, $mdSidenav, $mdBottomSheet, $log) {
-    $log.debug( "loadedTeams");
+  .controller('TeamsCtrl', function (teamsService, $scope, $http, $mdSidenav, $mdBottomSheet, $log) {
+
+    $scope.model = {teams:[]};
+
+    teamsService
+      .all()
+      .then( function( teams ) {
+        $scope.model.teams    = teams;
+      });
   });

@@ -1,1 +1,15 @@
-h2 TEAM CONTENT
+//md-grid-list#teams(md-cols-sm="1" md-cols-md="2" md-cols-gt-md="4" md-row-height-gt-md="1:1" md-row-height="1:1" md-gutter="30px" md-gutter-gt-sm="10px" )
+md-content.md-padding
+  md-card(ng-repeat="team in model.teams")
+    md-card-content(layout="row")
+      img(src="app/assets/profile_picture.jpg" class="md-card-image" flex="30")
+      md-content(flex="70" layout="column layout-fill")
+        md-content(flex="80" layout="column layout-fill")
+          h2 {{team.name}}
+          p Card contentp
+        .md-actions(flex="20" layout="row" layout-align="end end")
+          md-button(ng-click="editTeam()") Edit
+
+  lock-size(layout="row" layout-align="center center" style="float:right;position:fixed;bottom:20px;right:20px")
+    md-button(class="md-fab md-warn")
+      md-icon(md-svg-icon="note_add")
