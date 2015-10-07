@@ -109,9 +109,9 @@ module.exports = function (grunt) {
         files: [
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
           '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
-          
+
           '.tmp/{app,components}/**/*.js',
-          
+
           '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
           '<%= yeoman.client %>/assets/images/{,*//*}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -505,7 +505,7 @@ module.exports = function (grunt) {
 
     // Compiles ES6 to JavaScript using Babel
     babel: {
-      options: { 
+      options: {
         sourceMap: true
       },
       server: {
@@ -556,12 +556,12 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
                [
-                 
+
                  '.tmp/{app,components}/**/*.js',
-                 
-                 '!{.tmp,<%= yeoman.client %>}/app/app.js',               
+
+                 '!{.tmp,<%= yeoman.client %>}/app/app.js',
                  '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
-                 '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'               
+                 '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'
                ]
             ]
         }
@@ -631,7 +631,7 @@ module.exports = function (grunt) {
       return grunt.task.run([
         'clean:server',
         'env:all',
-        'injector:sass', 
+        'injector:sass',
         'concurrent:server',
         'injector',
         'wiredep',
@@ -643,7 +643,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'env:all',
-      'injector:sass', 
+      'injector:sass',
       'concurrent:server',
       'injector',
       'wiredep',
@@ -669,24 +669,12 @@ module.exports = function (grunt) {
       ]);
     }
 
-    else if (target === 'client') {
-      return grunt.task.run([
-        'clean:server',
-        'env:all',
-        'injector:sass', 
-        'concurrent:test',
-        'injector',
-        'autoprefixer',
-        'karma'
-      ]);
-    }
-
     else if (target === 'e2e') {
       return grunt.task.run([
         'clean:server',
         'env:all',
         'env:test',
-        'injector:sass', 
+        'injector:sass',
         'concurrent:test',
         'injector',
         'wiredep',
@@ -697,14 +685,13 @@ module.exports = function (grunt) {
     }
 
     else grunt.task.run([
-      'test:server',
-      'test:client'
+      'test:server'
     ]);
   });
 
   grunt.registerTask('build', [
     'clean:dist',
-    'injector:sass', 
+    'injector:sass',
     'concurrent:dist',
     'injector',
     'wiredep',
