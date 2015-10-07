@@ -1,28 +1,34 @@
-div(ng-include='"components/navbar/navbar.html"')
+div(flex='', layout='column')
 
-.container
-  form(ng-submit="createImport()")
-    .row
-      .col-lg-12
-        .input-group
-          label.sr-only(for='newImport') Nueva importación
-          input#newImport.form-control(placeholder="Escribí el código de la nueva importación", ng-model="newImportCode")
-          .input-group-btn
-            button.btn.btn-primary(type='submit') Crear importación
+  // Container #1 (in wireframe)
+  md-toolbar.md-whiteframe-z2(layout='row')
+    md-button.menu(hide-gt-sm='', ng-click='toggleList()', aria-label='Show User List')
+      md-icon(md-svg-icon='menu')
+    h1 Supergol
 
-  .row
-    .col-lg-12
-      h1.page-header Importaciones:
-      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(ng-repeat='it in imports')
-        li
-          p {{it.code}}
-          i {{it.createdAt}}
+  // Container #2 (in wireframe)
+  div(flex='', layout='row')
+    // Container #3 (in wireframe)
+    md-sidenav.md-whiteframe-z2(md-is-locked-open="$mdMedia('gt-sm')", md-component-id='left', layout='column')
+      md-toolbar(layout="column" layout-align="center center")
+        .circular
+        h3 Pepito
+      md-content
+        md-menu-item
+          md-button(ng-click="goToTeamsView()")
+            md-icon(md-svg-icon="social:people")
+            | Teams
+        md-menu-item
+          md-button(ng-click="goToTournamentsView()")
+            md-icon(md-svg-icon="social:public")
+            | Tournaments
 
-footer.footer
-  .container
-    p
-      | Angular Fullstack v2.1.1
-      = ' | '
-      a(href='https://twitter.com/tyhenkel') @tyhenkel
-      = ' | '
-      a(href='https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open') Issues
+
+    // Container #4 (in wireframe)
+    md-content#content(flex layout-padding)
+      //md-icon.avatar(md-svg-icon='{{ul.selected.avatar}}')
+      //h2 {{ul.selected.name}}
+      //p {{ul.selected.content}}
+      //md-button.share(md-no-ink='', ng-click='ul.share($event)', aria-label='Share')
+      //  md-icon(md-svg-icon='share')
+      .ui-view
