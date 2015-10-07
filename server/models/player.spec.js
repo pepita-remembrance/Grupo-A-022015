@@ -4,21 +4,13 @@ import 'should-promised';
 import _ from 'lodash';
 
 import { sequelize, RealWorldTeam, Player } from './index.js';
+import { createPlayer, createRealWorldTeam } from './factories.spec.js';
 
 describe('Player', () => {
   describe('create()', () => {
-    let aTeam;
-    let createPlayer;
-
-    beforeEach(() => {
-      return RealWorldTeam.create({ name: 'Argentinos Juniors' }).then(team => {
-        aTeam = team;
-        createPlayer = (attributes) => Player.create(_.extend({ name: 'Sarasa', RealWorldTeamId: aTeam.id, position: 'goalkeeper' }, attributes));
-      });
-    });
-
     it('adds the object to the DB', () => {
-      return Player.create({ name: 'Diego Armando Maradona', position: 'goalkeeper', RealWorldTeamId: aTeam.id })
+      return createRealWorldTeam()
+        .then(team => Player.create({ name: 'Diego Armando Maradona', position: 'goalkeeper', RealWorldTeamId: team.id }))
         .then(player => Player.findOne({ where: { id: player.id }, include: [ RealWorldTeam ] }))
         .then(it => it.get({ plain: true }))
         .should.eventually
