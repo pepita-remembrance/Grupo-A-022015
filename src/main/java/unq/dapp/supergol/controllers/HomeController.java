@@ -1,4 +1,4 @@
-package controllers;
+package unq.dapp.supergol.controllers;
 
 import spark.ModelAndView;
 import spark.Request;
