@@ -1,7 +1,7 @@
 package unq.dapp.supergol.main;
 
-import controllers.HomeController;
 import spark.template.handlebars.HandlebarsTemplateEngine;
+import unq.dapp.supergol.controllers.HomeController;
 
 import static spark.Spark.get;
 import static spark.Spark.staticFileLocation;
@@ -19,7 +19,7 @@ public class Routes {
 
     staticFileLocation("/public");
 
-    get("/", home::mostrar, engine);
+    get("/", home::show, engine);
     get("/index.html", (request, response) -> {
       response.redirect("/");
       return null;
