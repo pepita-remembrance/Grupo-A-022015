@@ -13,10 +13,10 @@ export default function(sequelize, DataTypes) {
     }
   }, {
     classMethods: {
-      associate: models => Player.belongsTo(
-        models.RealWorldTeam,
-        { foreignKey: { allowNull: false } }
-      )
+      associate: models => {
+        Player.belongsTo(models.RealWorldTeam, { foreignKey: { allowNull: false } });
+        Player.belongsToMany(models.Team, { through: 'PlayerTeam' });
+      }
     }
   });
 

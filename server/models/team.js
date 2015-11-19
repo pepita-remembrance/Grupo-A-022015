@@ -13,6 +13,7 @@ export default function(sequelize, DataTypes) {
   }, {
     classMethods: {
       associate: models => {
+        Team.belongsToMany(models.Player, { through: 'PlayerTeam' });
         Team.belongsTo(models.Player, { as: 'Captain', foreignKey: { allowNull: false } });
       }
     }

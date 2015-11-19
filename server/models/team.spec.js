@@ -2,6 +2,7 @@
 
 import 'should-promised';
 import _ from 'lodash';
+import Promise from 'bluebird';
 
 import { Team, Player } from './index.js';
 import { createTeam, createPlayer} from './factories.spec.js';
@@ -9,9 +10,10 @@ import { createTeam, createPlayer} from './factories.spec.js';
 describe('Team', () => {
   describe('create()', () => {
     it('adds the object to the DB', () => {
-      return createPlayer({ name: 'Leo Gassman' })
-        .then(player => Team.create({ name: 'UNQ', imageUrl: 'logo.jpeg', CaptainId: player.id }))
-        .then(team => Team.findOne({ where: { id: team.id }, include: [ { model: Player, as: 'Captain' } ] }))
+      return Promise.all([ createPlayer({ name: 'Leo Gassman' }), createPlayer({ name: 'Nico Passerini' }) ])
+        .spread((leo, nico) => [Team.create({ name: 'UNQ', imageUrl: 'logo.jpeg', PlayersId: [leo.id, nico.id], CaptainId: leo.id }), leo, nico])
+        .spread((team, ...players) => { team.addPlayers(players); return team })
+        .then(team => Team.findOne({ where: { id: team.id }, include: [ { model: Player, as: 'Players' } ] }))
         .then(it => it.get({ plain: true }))
         .should.eventually
         .have.properties({ name: 'UNQ', imageUrl: 'logo.jpeg' })
@@ -28,6 +30,10 @@ describe('Team', () => {
 
     it('has a captain', () => {
       return createTeam({ CaptainId: null }).should.be.rejectedWith(/CaptainId cannot be null/);
+    });
+
+    it('has at least one player', () => {
+
     });
   });
 });
