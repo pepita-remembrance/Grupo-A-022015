@@ -1,6 +1,4 @@
-package main;
-
-import model.Consultora;
+package unq.dapp.supergol.main;
 
 import org.uqbarproject.jpa.java8.extras.EntityManagerOps;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
@@ -8,7 +6,7 @@ import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 
 /**
  * Ejecutar antes de levantar el servidor por primera vez
- * 
+ *
  * @author flbulgarelli
  */
 public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, TransactionalOps {
@@ -18,11 +16,6 @@ public class Bootstrap implements WithGlobalEntityManager, EntityManagerOps, Tra
   }
 
   public void run() {
-    withTransaction(() -> {
-      persist(new Consultora("dblandit", 10));
-      persist(new Consultora("2diseños", 15));
-      persist(new Consultora("chakanalabs", 2));
-    });
   }
 
 }
