@@ -15,6 +15,15 @@ public enum Positions implements Position {
     }
   },
 
+  DEFENDER {
+    private static final int MULTIPLIER = 3;
+
+    @Override
+    public int scoreFor(Player player, Match match) {
+      return MULTIPLIER * FORWARD.scoreFor(player, match);
+    }
+  },
+
   GOALKEEPER {
     private static final int SUCCESS_POINTS = 2;
     private static final int FAILURE_POINTS = 0;

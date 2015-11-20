@@ -31,4 +31,8 @@ public class Player {
   public RealWorldTeam getRealWorldTeam() {
     return realWorldTeam;
   }
+
+  public static Player defender(RealWorldTeam team) {
+    return Player.ofTeam(Positions.DEFENDER, team);
+  }
 }
