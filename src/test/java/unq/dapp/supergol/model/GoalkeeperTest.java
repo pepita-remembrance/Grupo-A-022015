@@ -8,12 +8,11 @@ import static org.junit.Assert.*;
 public class GoalkeeperTest {
   private Player romero;
   private Match match;
-  private RealWorldTeam argentina;
   private RealWorldTeam bosniaAndHerzegovina;
 
   @Before
   public void setUp() throws Exception {
-    argentina = RealWorldTeam.named("Argentina");
+    RealWorldTeam argentina = RealWorldTeam.named("Argentina");
     bosniaAndHerzegovina = RealWorldTeam.named("Bosnia & Herzegovina");
 
     romero = Player.goalkeeper(argentina);

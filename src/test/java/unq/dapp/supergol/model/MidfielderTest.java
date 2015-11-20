@@ -5,26 +5,26 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class ForwardTest {
-  private Player messi;
+public class MidfielderTest {
+  private Player diMaria;
   private Match match;
 
   @Before
   public void setUp() throws Exception {
     RealWorldTeam argentina = RealWorldTeam.named("Argentina");
 
-    messi = Player.forward(argentina);
-    match = Match.versus(argentina, RealWorldTeam.named("Nigeria"));
+    diMaria = Player.midfielder(argentina);
+    match = Match.versus(argentina, RealWorldTeam.named("Switzerland"));
   }
 
   @Test
   public void whenNoGoalsWereMadeTheScoreIs0() {
-    assertEquals(0, messi.scoreFor(match));
+    assertEquals(0, diMaria.scoreFor(match));
   }
 
   @Test
   public void whenGoalsWereMadeAPointIsScoredPerGoal() {
-    match.addGoals(messi, 2);
-    assertEquals(2, messi.scoreFor(match));
+    match.addGoals(diMaria, 1);
+    assertEquals(1, diMaria.scoreFor(match));
   }
 }

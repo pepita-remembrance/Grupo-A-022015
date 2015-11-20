@@ -8,6 +8,13 @@ public enum Positions implements Position {
     }
   },
 
+  MIDFIELDER {
+    @Override
+    public int scoreFor(Player player, Match match) {
+      return FORWARD.scoreFor(player, match);
+    }
+  },
+
   GOALKEEPER {
     private static final int SUCCESS_POINTS = 2;
     private static final int FAILURE_POINTS = 0;
