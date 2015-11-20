@@ -21,12 +21,12 @@ public class GoalkeeperTest {
   }
 
   @Test
-  public void WhenNoGoalsWereReceivedTheScoreIs2() {
+  public void whenNoGoalsWereReceivedTheScoreIs2() {
     assertEquals(2, romero.scoreFor(match));
   }
 
   @Test
-  public void WhenNoGoalsWereReceivedTheScoreIs0() {
+  public void whenNoGoalsWereReceivedTheScoreIs0() {
     match.addGoals(Player.forward(bosniaAndHerzegovina), 1);
     assertEquals(0, romero.scoreFor(match));
   }
