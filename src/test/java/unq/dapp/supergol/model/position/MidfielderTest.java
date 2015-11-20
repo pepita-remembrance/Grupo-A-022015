@@ -1,7 +1,10 @@
-package unq.dapp.supergol.model;
+package unq.dapp.supergol.model.position;
 
 import org.junit.Before;
 import org.junit.Test;
+import unq.dapp.supergol.model.Match;
+import unq.dapp.supergol.model.Player;
+import unq.dapp.supergol.model.RealWorldTeam;
 
 import static org.junit.Assert.assertEquals;
 
