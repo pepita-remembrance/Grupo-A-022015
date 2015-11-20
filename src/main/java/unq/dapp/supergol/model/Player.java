@@ -5,15 +5,15 @@ public class Player {
   private Position position;
 
   public static Player goalkeeper(RealWorldTeam team) {
-    return Player.ofTeam(Positions.GOALKEEPER, team);
+    return Player.ofTeam(Position.GOALKEEPER, team);
   }
 
   public static Player forward(RealWorldTeam team) {
-    return Player.ofTeam(Positions.FORWARD, team);
+    return Player.ofTeam(Position.FORWARD, team);
   }
 
   public static Player midfielder(RealWorldTeam team) {
-    return Player.ofTeam(Positions.MIDFIELDER, team);
+    return Player.ofTeam(Position.MIDFIELDER, team);
   }
 
   private static Player ofTeam(Position position, RealWorldTeam team) {
@@ -33,6 +33,6 @@ public class Player {
   }
 
   public static Player defender(RealWorldTeam team) {
-    return Player.ofTeam(Positions.DEFENDER, team);
+    return Player.ofTeam(Position.DEFENDER, team);
   }
 }
