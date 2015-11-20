@@ -9,11 +9,11 @@ public class Player {
   }
 
   public static Player goalkeeper(RealWorldTeam team) {
-    return Player.ofTeam(new Goalkeeper(), team);
+    return Player.ofTeam(Positions.GOALKEEPER, team);
   }
 
   public static Player forward(RealWorldTeam team) {
-    return Player.ofTeam(new Forward(), team);
+    return Player.ofTeam(Positions.FORWARD, team);
   }
 
   private static Player ofTeam(Position position, RealWorldTeam team) {
