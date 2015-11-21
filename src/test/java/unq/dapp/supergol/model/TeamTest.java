@@ -21,7 +21,7 @@ public class TeamTest {
   public ExpectedException expectedException = ExpectedException.none();
 
   @Test
-  public void ATeamCantHaveMoreThanOneGoalkeeper() {
+  public void cantHaveMoreThanOneGoalkeeper() {
     team.addPlayer(anyPlayer(Position.GOALKEEPER));
 
     expectInvalidTeamFormationException("This team already has 1 player with position Goalkeeper, no more can be added.");
@@ -29,7 +29,7 @@ public class TeamTest {
   }
 
   @Test
-  public void ATeamCantHaveMoreThanThreeDefenders() {
+  public void cantHaveMoreThanThreeDefenders() {
     teamWithMany(Position.DEFENDER, 3);
 
     expectInvalidTeamFormationException("This team already has 3 players with position Defender, no more can be added.");
@@ -37,7 +37,7 @@ public class TeamTest {
   }
 
   @Test
-  public void ATeamCantHaveMoreThanFourMidfielders() {
+  public void cantHaveMoreThanFourMidfielders() {
     teamWithMany(Position.MIDFIELDER, 4);
 
     expectInvalidTeamFormationException("This team already has 4 players with position Midfielder, no more can be added.");
@@ -45,7 +45,7 @@ public class TeamTest {
   }
 
   @Test
-  public void ATeamCantHaveMoreThanThreeForwards() {
+  public void cantHaveMoreThanThreeForwards() {
     teamWithMany(Position.FORWARD, 3);
 
     expectInvalidTeamFormationException("This team already has 3 players with position Forward, no more can be added.");
