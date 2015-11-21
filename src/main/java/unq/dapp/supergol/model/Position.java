@@ -9,7 +9,7 @@ public enum Position {
 
     @Override
     public int maxQuantityPerTeam() {
-      return 0;
+      return 3;
     }
   },
 
@@ -21,7 +21,7 @@ public enum Position {
 
     @Override
     public int maxQuantityPerTeam() {
-      return 0;
+      return 4;
     }
   },
 
