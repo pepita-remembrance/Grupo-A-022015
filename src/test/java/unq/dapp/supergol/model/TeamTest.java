@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import unq.dapp.supergol.model.exceptions.InvalidTeamFormationException;
 
+import static unq.dapp.supergol.helpers.DomainFactory.anyPlayer;
+
 public class TeamTest {
 
   private Team team;
@@ -28,9 +30,7 @@ public class TeamTest {
 
   @Test
   public void ATeamCantHaveMoreThanThreeDefenders() {
-    for (int i = 0; i < 3; i++) {
-      team.addPlayer(anyPlayer(Position.DEFENDER));
-    }
+    teamWithMany(Position.DEFENDER, 3);
 
     expectInvalidTeamFormationException("This team already has 3 players with position Defender, no more can be added.");
     team.addPlayer(anyPlayer(Position.DEFENDER));
@@ -38,9 +38,7 @@ public class TeamTest {
 
   @Test
   public void ATeamCantHaveMoreThanFourMidfielders() {
-    for (int i = 0; i < 4; i++) {
-      team.addPlayer(anyPlayer(Position.MIDFIELDER));
-    }
+    teamWithMany(Position.MIDFIELDER, 4);
 
     expectInvalidTeamFormationException("This team already has 4 players with position Midfielder, no more can be added.");
     team.addPlayer(anyPlayer(Position.MIDFIELDER));
@@ -48,25 +46,20 @@ public class TeamTest {
 
   @Test
   public void ATeamCantHaveMoreThanThreeForwards() {
-    for (int i = 0; i < 3; i++) {
-      team.addPlayer(anyPlayer(Position.FORWARD));
-    }
+    teamWithMany(Position.FORWARD, 3);
 
     expectInvalidTeamFormationException("This team already has 3 players with position Forward, no more can be added.");
     team.addPlayer(anyPlayer(Position.FORWARD));
   }
 
+  private void teamWithMany(Position position, int quantity) {
+    for (int i = 0; i < quantity; i++) {
+      team.addPlayer(anyPlayer(position));
+    }
+  }
 
   private void expectInvalidTeamFormationException(String substring) {
     expectedException.expect(InvalidTeamFormationException.class);
     expectedException.expectMessage(substring);
-  }
-
-  private Player anyPlayer(Position position) {
-    return Player.ofTeam(position, anyRealWorldTeam());
-  }
-
-  private RealWorldTeam anyRealWorldTeam() {
-    return RealWorldTeam.named("Anyone");
   }
 }
