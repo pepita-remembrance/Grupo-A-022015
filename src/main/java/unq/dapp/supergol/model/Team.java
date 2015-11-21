@@ -5,8 +5,9 @@ import unq.dapp.supergol.model.exceptions.InvalidTeamFormationException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static java.lang.Math.toIntExact;
+
 public class Team {
-  public static final int MAX_GOALKEEPERS = 1;
   private Collection<Player> players = new ArrayList<>();
 
   public void addPlayer(Player player) {
@@ -15,10 +16,14 @@ public class Team {
   }
 
   private void checkFormationStillValidAfterAdding(Player player) {
-      if (players.stream()
-        .filter(it -> it.getPosition() == Position.GOALKEEPER)
-        .count() == MAX_GOALKEEPERS) {
-        throw new InvalidTeamFormationException(MAX_GOALKEEPERS, Position.GOALKEEPER);
-      }
+    if (currentCountOf(player.getPosition()) == player.getPosition().maxQuantityPerTeam()) {
+      throw new InvalidTeamFormationException(player.getPosition());
+    }
+  }
+
+  private int currentCountOf(Position position) {
+    return toIntExact(players.stream()
+      .filter(it -> it.getPosition() == position)
+      .count());
   }
 }

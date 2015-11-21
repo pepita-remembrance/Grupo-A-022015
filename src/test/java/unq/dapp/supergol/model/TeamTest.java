@@ -20,15 +20,26 @@ public class TeamTest {
 
   @Test
   public void ATeamCantHaveMoreThanOneGoalkeeper() {
-    team.addPlayer(anyGoalkeeper());
+    team.addPlayer(anyPlayer(Position.GOALKEEPER));
 
     expectedException.expect(InvalidTeamFormationException.class);
     expectedException.expectMessage("This team already has 1 player with position Goalkeeper, no more can be added.");
-    team.addPlayer(anyGoalkeeper());
+    team.addPlayer(anyPlayer(Position.GOALKEEPER));
   }
 
-  private Player anyGoalkeeper() {
-    return Player.goalkeeper(anyRealWorldTeam());
+  @Test
+  public void ATeamCantHaveMoreThanThreeDefenders() {
+    for (int i = 0; i < 3; i++) {
+      team.addPlayer(anyPlayer(Position.DEFENDER));
+    }
+
+    expectedException.expect(InvalidTeamFormationException.class);
+    expectedException.expectMessage("This team already has 3 players with position Defender, no more can be added.");
+    team.addPlayer(anyPlayer(Position.DEFENDER));
+  }
+
+  private Player anyPlayer(Position position) {
+    return Player.ofTeam(position, anyRealWorldTeam());
   }
 
   private RealWorldTeam anyRealWorldTeam() {

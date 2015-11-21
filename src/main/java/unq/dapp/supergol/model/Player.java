@@ -16,7 +16,7 @@ public class Player {
     return Player.ofTeam(Position.MIDFIELDER, team);
   }
 
-  private static Player ofTeam(Position position, RealWorldTeam team) {
+  public static Player ofTeam(Position position, RealWorldTeam team) {
     Player player = new Player();
     player.position = position;
     player.realWorldTeam = team;

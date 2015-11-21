@@ -6,12 +6,22 @@ public enum Position {
     public int scoreFor(Player player, Match match) {
       return match.goalsOf(player);
     }
+
+    @Override
+    public int maxQuantityPerTeam() {
+      return 0;
+    }
   },
 
   MIDFIELDER {
     @Override
     public int scoreFor(Player player, Match match) {
       return FORWARD.scoreFor(player, match);
+    }
+
+    @Override
+    public int maxQuantityPerTeam() {
+      return 0;
     }
   },
 
@@ -21,6 +31,11 @@ public enum Position {
     @Override
     public int scoreFor(Player player, Match match) {
       return MULTIPLIER * FORWARD.scoreFor(player, match);
+    }
+
+    @Override
+    public int maxQuantityPerTeam() {
+      return 3;
     }
   },
 
@@ -34,7 +49,13 @@ public enum Position {
         ? SUCCESS_POINTS
         : FAILURE_POINTS;
     }
+
+    @Override
+    public int maxQuantityPerTeam() {
+      return 1;
+    }
   };
 
   public abstract int scoreFor(Player player, Match match);
+  public abstract int maxQuantityPerTeam();
 }
