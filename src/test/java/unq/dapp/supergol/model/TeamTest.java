@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import unq.dapp.supergol.model.exceptions.InvalidTeamFormationException;
 
+import static org.junit.Assert.assertEquals;
 import static unq.dapp.supergol.helpers.DomainFactory.anyPlayer;
 
 public class TeamTest {
@@ -30,7 +31,7 @@ public class TeamTest {
 
   @Test
   public void cantHaveMoreThanThreeDefenders() {
-    teamWithMany(Position.DEFENDER, 3);
+    addPlayersToTeam(Position.DEFENDER, 3);
 
     expectInvalidTeamFormationException("This team already has 3 players with position Defender, no more can be added.");
     team.addPlayer(anyPlayer(Position.DEFENDER));
@@ -38,7 +39,7 @@ public class TeamTest {
 
   @Test
   public void cantHaveMoreThanFourMidfielders() {
-    teamWithMany(Position.MIDFIELDER, 4);
+    addPlayersToTeam(Position.MIDFIELDER, 4);
 
     expectInvalidTeamFormationException("This team already has 4 players with position Midfielder, no more can be added.");
     team.addPlayer(anyPlayer(Position.MIDFIELDER));
@@ -46,13 +47,32 @@ public class TeamTest {
 
   @Test
   public void cantHaveMoreThanThreeForwards() {
-    teamWithMany(Position.FORWARD, 3);
+    addPlayersToTeam(Position.FORWARD, 3);
 
     expectInvalidTeamFormationException("This team already has 3 players with position Forward, no more can be added.");
     team.addPlayer(anyPlayer(Position.FORWARD));
   }
 
-  private void teamWithMany(Position position, int quantity) {
+  @Test
+  public void theScoreForAMatchIsTheSumOfThePlayersScore() {
+    RealWorldTeam argentina = RealWorldTeam.named("Argentina");
+    Player diMaria = Player.midfielder(argentina);
+    Player rojo = Player.defender(argentina);
+
+    RealWorldTeam brazil = RealWorldTeam.named("Brazil");
+    Player neymar = Player.forward(brazil);
+
+    Match match = Match.versus(argentina, brazil);
+    match.addGoals(diMaria, 2);
+    match.addGoals(rojo, 1);
+    match.addGoals(neymar, 2);
+    match.addGoals(Player.defender(argentina), 3);
+
+    Team team = new Team().addPlayer(diMaria).addPlayer(rojo).addPlayer(neymar);
+    assertEquals(team.scoreFor(match), 7); //2 diMaria + 3 rojo + 2 neymar
+  }
+
+  private void addPlayersToTeam(Position position, int quantity) {
     for (int i = 0; i < quantity; i++) {
       team.addPlayer(anyPlayer(position));
     }

@@ -10,9 +10,11 @@ import static java.lang.Math.toIntExact;
 public class Team {
   private Collection<Player> players = new ArrayList<>();
 
-  public void addPlayer(Player player) {
+  public Team addPlayer(Player player) {
     checkFormationStillValidAfterAdding(player);
     players.add(player);
+
+    return this;
   }
 
   private void checkFormationStillValidAfterAdding(Player player) {
@@ -25,5 +27,9 @@ public class Team {
     return toIntExact(players.stream()
       .filter(it -> it.getPosition() == position)
       .count());
+  }
+
+  public int scoreFor(Match match) {
+    return players.stream().mapToInt(it -> it.scoreFor(match)).sum();
   }
 }
