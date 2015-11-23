@@ -1,8 +1,11 @@
 package unq.dapp.supergol.model;
 
-public class Player {
+import unq.dapp.supergol.model.repositories.Entity;
+
+public class Player implements Entity {
   private RealWorldTeam realWorldTeam;
   private Position position;
+  private int id;
 
   public static Player goalkeeper(RealWorldTeam team) {
     return Player.ofTeam(Position.GOALKEEPER, team);
@@ -38,5 +41,14 @@ public class Player {
 
   public Position getPosition() {
     return position;
+  }
+
+  public void setId(int id) {
+    this.id = id;
+  }
+
+  @Override
+  public int getId() {
+    return id;
   }
 }
