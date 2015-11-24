@@ -14,4 +14,8 @@ public class RealWorldTeam {
   public String toString() {
     return name;
   }
+
+  public boolean includes(Player player) {
+    return player.getRealWorldTeam() == this;
+  }
 }

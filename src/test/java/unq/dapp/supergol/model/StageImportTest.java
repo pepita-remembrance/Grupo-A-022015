@@ -8,6 +8,7 @@ import unq.dapp.supergol.model.repositories.Repository;
 import java.sql.Date;
 import java.time.LocalDate;
 
+import static org.junit.Assert.assertEquals;
 import static unq.dapp.supergol.helpers.DomainFactory.anyRealWorldTeam;
 
 public class StageImportTest {
@@ -15,6 +16,8 @@ public class StageImportTest {
   private Player mancuello;
   private Stage stage;
   private Repository<Player> repo;
+  private Match racingVsIndependiente;
+  private Match anotherMatch;
 
   @Before
   public void setUp() {
@@ -28,19 +31,26 @@ public class StageImportTest {
     mancuello = Player.midfielder(independiente);
     saveWithId(mancuello, 2);
 
-    RealWorldTeam sanLorenzo = anyRealWorldTeam();
-    RealWorldTeam huracan = anyRealWorldTeam();
+    racingVsIndependiente = Match.versus(racing, independiente);
+    anotherMatch = Match.versus(anyRealWorldTeam(), anyRealWorldTeam());
 
     stage = Stage.ofDate(
       Date.valueOf(LocalDate.of(2015, 10, 25)),
-      Match.versus(racing, independiente),
-      Match.versus(sanLorenzo, huracan)
+      racingVsIndependiente, anotherMatch
     );
   }
 
   @Test(expected = UnexistentPlayerException.class)
   public void theImportFailsIfAPlayerDoesntExist() {
-    new StageImport(repo, "89,Midfielder,3", stage).execute();
+    new StageImport(repo, "89,Midfielder,3\n1.Forward,3", stage).execute();
+  }
+
+  @Test
+  public void theImportAddsTheGoalsToTheRightMatch() {
+    new StageImport(repo, "1,Forward,3", stage).execute();
+
+    assertEquals(3, racingVsIndependiente.goalsOf(milito));
+    assertEquals(0, anotherMatch.goalsOf(milito));
   }
 
   private void saveWithId(Player player, int id) {

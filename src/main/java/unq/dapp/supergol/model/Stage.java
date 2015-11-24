@@ -21,6 +21,6 @@ public class Stage {
   }
 
   public void addGoals(Player player, int goals) {
-
+    matches.forEach(match -> match.addGoals(player, goals));
   }
 }

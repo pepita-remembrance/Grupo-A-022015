@@ -19,7 +19,13 @@ public class Match {
   }
 
   public void addGoals(Player player, Integer quantity) {
-    this.goals.put(player, quantity);
+    if (isInvolvedInTheMatch(player)) {
+      this.goals.put(player, quantity);
+    }
+  }
+
+  private boolean isInvolvedInTheMatch(Player player) {
+    return homeTeam.includes(player) || awayTeam.includes(player);
   }
 
   public int goalsOf(RealWorldTeam realWorldTeam) {
