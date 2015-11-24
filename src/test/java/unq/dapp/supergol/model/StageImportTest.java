@@ -53,6 +53,14 @@ public class StageImportTest {
     assertEquals(0, anotherMatch.goalsOf(milito));
   }
 
+  @Test
+  public void theImportAddsTheGoalsOfAllThePlayers() {
+    new StageImport(repo, "1,Forward,3\n2,Midfielder,1", stage).execute();
+
+    assertEquals(3, racingVsIndependiente.goalsOf(milito));
+    assertEquals(1, racingVsIndependiente.goalsOf(mancuello));
+  }
+
   private void saveWithId(Player player, int id) {
     player.setId(id);
     repo.add(player);

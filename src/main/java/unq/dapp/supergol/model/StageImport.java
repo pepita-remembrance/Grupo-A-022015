@@ -3,6 +3,8 @@ package unq.dapp.supergol.model;
 import unq.dapp.supergol.model.exceptions.UnexistentPlayerException;
 import unq.dapp.supergol.model.repositories.Repository;
 
+import java.util.Arrays;
+
 import static java.lang.Math.toIntExact;
 
 public class StageImport {
@@ -20,8 +22,10 @@ public class StageImport {
   }
 
   public void execute() {
-    String[] fields = csv.split(",");
-    stage.addGoals(player(fields), goals(fields));
+    Arrays.asList(csv.split("\n")).forEach(line -> {
+      String[] row = line.split(",");
+      stage.addGoals(player(row), goals(row));
+    });
   }
 
   private int goals(String[] row) {
