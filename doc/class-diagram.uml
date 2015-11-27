@@ -4,9 +4,10 @@
   <OriginalElement />
   <nodes>
     <node x="3.0" y="711.0">unq.dapp.supergol.model.Match</node>
-    <node x="399.0" y="602.0">unq.dapp.supergol.model.Team</node>
+    <node x="379.0" y="581.0">unq.dapp.supergol.model.Team</node>
     <node x="405.0" y="283.0">unq.dapp.supergol.model.RealWorldTeam</node>
     <node x="-75.0" y="230.0">unq.dapp.supergol.model.Player</node>
+    <node x="-50.0" y="896.0">unq.dapp.supergol.model.League</node>
     <node x="-325.0" y="595.0">unq.dapp.supergol.model.Stage</node>
     <node x="31.0" y="562.0">unq.dapp.supergol.model.Position</node>
     <node x="-355.0" y="227.0">unq.dapp.supergol.model.repositories.Repository</node>
@@ -26,6 +27,10 @@
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
+    <edge source="unq.dapp.supergol.model.League" target="unq.dapp.supergol.model.Team">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
     <edge source="unq.dapp.supergol.model.Player" target="unq.dapp.supergol.model.Position">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
@@ -35,6 +40,10 @@
       <point x="0.0" y="0.0" />
     </edge>
     <edge source="unq.dapp.supergol.model.Player" target="unq.dapp.supergol.model.RealWorldTeam">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.League" target="unq.dapp.supergol.model.Stage">
       <point x="0.0" y="0.0" />
       <point x="0.0" y="0.0" />
     </edge>
@@ -59,13 +68,15 @@
       <point x="0.0" y="0.0" />
     </edge>
   </edges>
-  <settings layout="Hierarchic Group" zoom="1.0" x="212.5" y="548.5" />
-  <SelectedNodes />
+  <settings layout="Hierarchic Group" zoom="1.0" x="212.5" y="468.5" />
+  <SelectedNodes>
+    <node>unq.dapp.supergol.model.League</node>
+  </SelectedNodes>
   <Categories>
     <Category>Methods</Category>
     <Category>Properties</Category>
   </Categories>
-  <SCOPE>All</SCOPE>
+  <SCOPE>Project Files</SCOPE>
   <VISIBILITY>public</VISIBILITY>
 </Diagram>
 
