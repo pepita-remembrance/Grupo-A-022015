@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="3.0" y="711.0">unq.dapp.supergol.model.Match</node>
+    <node x="399.0" y="602.0">unq.dapp.supergol.model.Team</node>
+    <node x="405.0" y="283.0">unq.dapp.supergol.model.RealWorldTeam</node>
+    <node x="-75.0" y="230.0">unq.dapp.supergol.model.Player</node>
+    <node x="-325.0" y="595.0">unq.dapp.supergol.model.Stage</node>
+    <node x="31.0" y="562.0">unq.dapp.supergol.model.Position</node>
+    <node x="-355.0" y="227.0">unq.dapp.supergol.model.repositories.Repository</node>
+    <node x="-325.0" y="423.0">unq.dapp.supergol.model.StageImport</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="unq.dapp.supergol.model.Team" target="unq.dapp.supergol.model.Player">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Match" target="unq.dapp.supergol.model.Team">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Stage" target="unq.dapp.supergol.model.Player">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Player" target="unq.dapp.supergol.model.Position">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Position" target="unq.dapp.supergol.model.Player">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Player" target="unq.dapp.supergol.model.RealWorldTeam">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.StageImport" target="unq.dapp.supergol.model.Player">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Match" target="unq.dapp.supergol.model.Stage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.Position" target="unq.dapp.supergol.model.Stage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.StageImport" target="unq.dapp.supergol.model.repositories.Repository">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+    <edge source="unq.dapp.supergol.model.StageImport" target="unq.dapp.supergol.model.Stage">
+      <point x="0.0" y="0.0" />
+      <point x="0.0" y="0.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="212.5" y="548.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>public</VISIBILITY>
+</Diagram>
+
