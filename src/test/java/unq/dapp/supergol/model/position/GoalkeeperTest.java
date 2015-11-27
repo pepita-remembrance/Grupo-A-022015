@@ -29,7 +29,7 @@ public class GoalkeeperTest {
 
   @Test
   public void whenNoGoalsWereReceivedTheScoreIs0() {
-    match.addGoals(Player.forward(bosniaAndHerzegovina), 1);
+    match.stage.addGoals(Player.forward(bosniaAndHerzegovina), 1);
     assertEquals(0, romero.scoreFor(match));
   }
 }

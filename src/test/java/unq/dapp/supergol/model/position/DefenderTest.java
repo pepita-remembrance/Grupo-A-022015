@@ -27,7 +27,7 @@ public class DefenderTest {
 
   @Test
   public void whenGoalsWereMade3PointAreScoredPerGoal() {
-    match.addGoals(rojo, 1);
+    match.stage.addGoals(rojo, 1);
     assertEquals(3, rojo.scoreFor(match));
   }
 }

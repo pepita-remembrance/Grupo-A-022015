@@ -35,8 +35,7 @@ public class StageImportTest {
     anotherMatch = Match.versus(anyRealWorldTeam(), anyRealWorldTeam());
 
     stage = Stage.ofDate(
-      Date.valueOf(LocalDate.of(2015, 10, 25)),
-      racingVsIndependiente, anotherMatch
+      Date.valueOf(LocalDate.of(2015, 10, 25))
     );
   }
 
@@ -46,19 +45,18 @@ public class StageImportTest {
   }
 
   @Test
-  public void theImportAddsTheGoalsToTheRightMatch() {
+  public void theImportAddsTheGoalsToTheStage() {
     new StageImport(repo, "1,Forward,3", stage).execute();
 
-    assertEquals(3, racingVsIndependiente.goalsOf(milito));
-    assertEquals(0, anotherMatch.goalsOf(milito));
+    assertEquals(3, stage.goalsOf(milito));
   }
 
   @Test
   public void theImportAddsTheGoalsOfAllThePlayers() {
     new StageImport(repo, "1,Forward,3\n2,Midfielder,1", stage).execute();
 
-    assertEquals(3, racingVsIndependiente.goalsOf(milito));
-    assertEquals(1, racingVsIndependiente.goalsOf(mancuello));
+    assertEquals(3, stage.goalsOf(milito));
+    assertEquals(1, stage.goalsOf(mancuello));
   }
 
   private void saveWithId(Player player, int id) {

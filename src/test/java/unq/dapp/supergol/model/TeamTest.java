@@ -63,10 +63,10 @@ public class TeamTest {
     Player neymar = Player.forward(brazil);
 
     Match match = Match.versus(argentina, brazil);
-    match.addGoals(diMaria, 2);
-    match.addGoals(rojo, 1);
-    match.addGoals(neymar, 2);
-    match.addGoals(Player.defender(argentina), 3);
+    match.stage.addGoals(diMaria, 2);
+    match.stage.addGoals(rojo, 1);
+    match.stage.addGoals(neymar, 2);
+    match.stage.addGoals(Player.defender(argentina), 3);
 
     Team team = new Team().addPlayer(diMaria).addPlayer(rojo).addPlayer(neymar);
     assertEquals(team.scoreFor(match), 7); //2 diMaria + 3 rojo + 2 neymar

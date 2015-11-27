@@ -27,7 +27,7 @@ public class MidfielderTest {
 
   @Test
   public void whenGoalsWereMadeAPointIsScoredPerGoal() {
-    match.addGoals(diMaria, 1);
+    match.stage.addGoals(diMaria, 1);
     assertEquals(1, diMaria.scoreFor(match));
   }
 }

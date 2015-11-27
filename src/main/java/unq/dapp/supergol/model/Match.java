@@ -1,31 +1,21 @@
 package unq.dapp.supergol.model;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
 public class Match {
   private RealWorldTeam homeTeam;
   private RealWorldTeam awayTeam;
-
-  private Map<Player, Integer> goals = new HashMap<>();
+  public Stage stage;
 
   public static Match versus(RealWorldTeam homeTeam, RealWorldTeam awayTeam) {
     Match match = new Match();
     match.homeTeam = homeTeam;
     match.awayTeam = awayTeam;
 
+    match.stage = new Stage();
+
     return match;
-  }
-
-  public void addGoals(Player player, Integer quantity) {
-    if (isInvolvedInTheMatch(player)) {
-      this.goals.put(player, quantity);
-    }
-  }
-
-  private boolean isInvolvedInTheMatch(Player player) {
-    return homeTeam.includes(player) || awayTeam.includes(player);
   }
 
   public int goalsOf(RealWorldTeam realWorldTeam) {
@@ -43,7 +33,7 @@ public class Match {
   }
 
   private int goalsOf(Predicate<Player> predicate) {
-    return goals.entrySet().stream()
+    return stage.goals.entrySet().stream()
       .filter(pair -> predicate.test(pair.getKey()))
       .mapToInt(Map.Entry::getValue)
       .sum();

@@ -27,7 +27,7 @@ public class ForwardTest {
 
   @Test
   public void whenGoalsWereMadeAPointIsScoredPerGoal() {
-    match.addGoals(messi, 2);
+    match.stage.addGoals(messi, 2);
     assertEquals(2, messi.scoreFor(match));
   }
 }

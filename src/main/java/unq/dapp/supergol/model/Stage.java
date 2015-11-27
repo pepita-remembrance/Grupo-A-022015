@@ -1,26 +1,31 @@
 package unq.dapp.supergol.model;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
+import java.util.*;
+import java.util.function.Predicate;
 
 public class Stage {
   private Date date;
-  private Collection<Match> matches;
+  public Map<Player, Integer> goals = new HashMap<>();
 
-  public static Stage ofDate(Date date, Match... matches) {
+  public static Stage ofDate(Date date) {
     Stage stage = new Stage();
     stage.date = date;
-    stage.matches = Arrays.asList(matches);
 
     return stage;
   }
 
-  public int scoreOf(Player player) {
-    return matches.stream().mapToInt(player::scoreFor).sum();
+  public void addGoals(Player player, Integer quantity) {
+    goals.put(player, quantity);
   }
 
-  public void addGoals(Player player, int goals) {
-    matches.forEach(match -> match.addGoals(player, goals));
+  public int goalsOf(Player player) {
+    return goalsOf(goalAuthor -> goalAuthor == player);
+  }
+
+  private int goalsOf(Predicate<Player> predicate) {
+    return goals.entrySet().stream()
+      .filter(pair -> predicate.test(pair.getKey()))
+      .mapToInt(Map.Entry::getValue)
+      .sum();
   }
 }
