@@ -10,6 +10,10 @@ import static java.lang.Math.toIntExact;
 public class Team {
   private Collection<Player> players = new ArrayList<>();
 
+  public Collection<Player> getPlayers() {
+    return players;
+  }
+
   public Team addPlayer(Player player) {
     checkFormationStillValidAfterAdding(player);
     players.add(player);

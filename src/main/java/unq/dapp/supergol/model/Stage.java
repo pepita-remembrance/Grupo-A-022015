@@ -4,8 +4,12 @@ import java.util.*;
 import java.util.function.Predicate;
 
 public class Stage {
+  public Date getDate() {
+    return date;
+  }
+
   private Date date;
-  public Map<Player, Integer> goals = new HashMap<>();
+  private Map<Player, Integer> goals = new HashMap<>();
 
   public static Stage ofDate(Date date) {
     Stage stage = new Stage();

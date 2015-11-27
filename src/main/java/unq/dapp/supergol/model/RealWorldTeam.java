@@ -1,6 +1,10 @@
 package unq.dapp.supergol.model;
 
 public class RealWorldTeam {
+  public String getName() {
+    return name;
+  }
+
   private String name;
 
   public static RealWorldTeam named(String name) {

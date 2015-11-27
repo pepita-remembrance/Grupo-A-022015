@@ -6,6 +6,15 @@ public class Match {
   private static final int LOSER_SCORE = 0;
 
   private Stage stage;
+
+  public Team getHomeTeam() {
+    return homeTeam;
+  }
+
+  public Team getAwayTeam() {
+    return awayTeam;
+  }
+
   private Team homeTeam;
   private Team awayTeam;
 
