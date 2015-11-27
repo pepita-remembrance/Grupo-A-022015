@@ -29,7 +29,7 @@ public class Team {
       .count());
   }
 
-  public int scoreFor(Match match) {
-    return players.stream().mapToInt(it -> it.scoreFor(match)).sum();
+  public int scoreFor(Stage stage) {
+    return players.stream().mapToInt(it -> it.scoreFor(stage)).sum();
   }
 }

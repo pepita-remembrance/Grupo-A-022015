@@ -3,8 +3,8 @@ package unq.dapp.supergol.model;
 public enum Position {
   FORWARD {
     @Override
-    public int scoreFor(Player player, Match match) {
-      return match.goalsOf(player);
+    public int scoreFor(Player player, Stage stage) {
+      return stage.goalsOf(player);
     }
 
     @Override
@@ -15,8 +15,8 @@ public enum Position {
 
   MIDFIELDER {
     @Override
-    public int scoreFor(Player player, Match match) {
-      return FORWARD.scoreFor(player, match);
+    public int scoreFor(Player player, Stage stage) {
+      return FORWARD.scoreFor(player, stage);
     }
 
     @Override
@@ -29,8 +29,8 @@ public enum Position {
     private static final int MULTIPLIER = 3;
 
     @Override
-    public int scoreFor(Player player, Match match) {
-      return MULTIPLIER * FORWARD.scoreFor(player, match);
+    public int scoreFor(Player player, Stage stage) {
+      return MULTIPLIER * FORWARD.scoreFor(player, stage);
     }
 
     @Override
@@ -44,8 +44,8 @@ public enum Position {
     private static final int FAILURE_POINTS = 0;
 
     @Override
-    public int scoreFor(Player player, Match match) {
-      return match.goalsAgainst(player.getRealWorldTeam()) == 0
+    public int scoreFor(Player player, Stage stage) {
+      return stage.goalsOf(player) == 0
         ? SUCCESS_POINTS
         : FAILURE_POINTS;
     }
@@ -56,6 +56,6 @@ public enum Position {
     }
   };
 
-  public abstract int scoreFor(Player player, Match match);
+  public abstract int scoreFor(Player player, Stage stage);
   public abstract int maxQuantityPerTeam();
 }

@@ -27,8 +27,8 @@ public class Player implements Entity {
     return player;
   }
 
-  public int scoreFor(Match match) {
-    return position.scoreFor(this, match);
+  public int scoreFor(Stage stage) {
+    return position.scoreFor(this, stage);
   }
 
   public RealWorldTeam getRealWorldTeam() {

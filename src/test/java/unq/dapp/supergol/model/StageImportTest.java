@@ -16,8 +16,6 @@ public class StageImportTest {
   private Player mancuello;
   private Stage stage;
   private Repository<Player> repo;
-  private Match racingVsIndependiente;
-  private Match anotherMatch;
 
   @Before
   public void setUp() {
@@ -30,9 +28,6 @@ public class StageImportTest {
     RealWorldTeam independiente = anyRealWorldTeam();
     mancuello = Player.midfielder(independiente);
     saveWithId(mancuello, 2);
-
-    racingVsIndependiente = Match.versus(racing, independiente);
-    anotherMatch = Match.versus(anyRealWorldTeam(), anyRealWorldTeam());
 
     stage = Stage.ofDate(
       Date.valueOf(LocalDate.of(2015, 10, 25))
