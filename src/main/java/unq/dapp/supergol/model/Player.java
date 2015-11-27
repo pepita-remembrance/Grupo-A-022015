@@ -1,8 +1,8 @@
 package unq.dapp.supergol.model;
 
-import unq.dapp.supergol.model.repositories.Entity;
+import unq.dapp.supergol.model.repositories.Persistable;
 
-public class Player implements Entity {
+public class Player extends Persistable {
   private RealWorldTeam realWorldTeam;
   private Position position;
   private int id;
@@ -41,14 +41,5 @@ public class Player implements Entity {
 
   public Position getPosition() {
     return position;
-  }
-
-  public void setId(int id) {
-    this.id = id;
-  }
-
-  @Override
-  public int getId() {
-    return id;
   }
 }
