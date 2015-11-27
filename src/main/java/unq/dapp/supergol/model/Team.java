@@ -10,6 +10,17 @@ import static java.lang.Math.toIntExact;
 public class Team {
   private Collection<Player> players = new ArrayList<>();
 
+  public String getName() {
+    return name;
+  }
+
+  public String getLogoUrl() {
+    return logoUrl;
+  }
+
+  private String name;
+  private String logoUrl;
+
   public Collection<Player> getPlayers() {
     return players;
   }
