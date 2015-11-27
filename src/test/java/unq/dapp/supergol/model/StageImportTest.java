@@ -36,22 +36,30 @@ public class StageImportTest {
 
   @Test(expected = UnexistentPlayerException.class)
   public void theImportFailsIfAPlayerDoesntExist() {
-    new StageImport(repo, "89,Midfielder,3\n1.Forward,3", stage).execute();
+    new StageImport(repo, "2\n89,Midfielder,3\n1.Forward,3", stage).execute();
   }
 
   @Test
   public void theImportAddsTheGoalsToTheStage() {
-    new StageImport(repo, "1,Forward,3", stage).execute();
+    new StageImport(repo, "3\n1,Forward,3", stage).execute();
 
     assertEquals(3, stage.goalsOf(milito));
   }
 
   @Test
   public void theImportAddsTheGoalsOfAllThePlayers() {
-    new StageImport(repo, "1,Forward,3\n2,Midfielder,1", stage).execute();
+    new StageImport(repo, "4\n1,Forward,3\n2,Midfielder,1", stage).execute();
 
     assertEquals(3, stage.goalsOf(milito));
     assertEquals(1, stage.goalsOf(mancuello));
+  }
+
+  @Test
+  public void whenExecutedTheIdIsSet() {
+    StageImport stageImport = new StageImport(repo, "28\n1,Forward,3\n2,Midfielder,1", stage);
+    stageImport.execute();
+
+    assertEquals(28, stageImport.getId());
   }
 
   private void saveWithId(Player player, int id) {

@@ -4,8 +4,10 @@ import unq.dapp.supergol.model.exceptions.UnexistentPlayerException;
 import unq.dapp.supergol.model.repositories.Repository;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static java.lang.Math.toIntExact;
+import static unq.dapp.supergol.utils.ListUtils.tail;
 
 public class StageImport {
   private static final int PLAYER_POSITION = 0;
@@ -14,6 +16,7 @@ public class StageImport {
   private final Repository<Player> playerRepo;
   private final String csv;
   private final Stage stage;
+  private long id;
 
   public StageImport(Repository<Player> playerRepo, String csv, Stage stage) {
     this.playerRepo = playerRepo;
@@ -22,7 +25,11 @@ public class StageImport {
   }
 
   public void execute() {
-    Arrays.asList(csv.split("\n")).forEach(line -> {
+    List<String> lines = Arrays.asList(csv.split("\n"));
+
+    id = Long.parseLong(lines.get(0));
+
+    tail(lines).forEach(line -> {
       String[] row = line.split(",");
       stage.addGoals(player(row), goals(row));
     });
@@ -42,5 +49,9 @@ public class StageImport {
 
   private long getLong(String[] row, int position) {
     return Long.parseLong(row[position]);
+  }
+
+  public long getId() {
+    return id;
   }
 }
