@@ -2,9 +2,11 @@ package unq.dapp.supergol.model.persistence;
 
 import org.junit.Before;
 import org.junit.Test;
-import unq.dapp.supergol.model.Player;
-import unq.dapp.supergol.model.RealWorldTeam;
-import unq.dapp.supergol.model.Team;
+import unq.dapp.supergol.model.*;
+
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Month;
 
 import static org.junit.Assert.assertEquals;
 import static unq.dapp.supergol.utils.CollectionUtils.anyOne;
@@ -50,6 +52,18 @@ public class PersistenceTest extends BasePersistenceTest {
     assertEquals(losVengadoresDeFlores.getName(), teamFromSQL.getName());
     assertEquals(losVengadoresDeFlores.getLogoUrl(), teamFromSQL.getLogoUrl());
     assertEquals(ortigoza.getName(), anyOne(teamFromSQL.getPlayers()).getName());
+  }
+
+  @Test
+  public void stagesCanBePersisted() {
+    Stage stage = Stage.ofDate(Date.valueOf(LocalDate.of(2015, Month.OCTOBER, 30)));
+    stage.addGoals(ortigoza, 2);
+
+    persist(ortigoza);
+    Stage stageFromSQL = saveAndRetrieve(Stage.class, stage);
+
+    assertEquals(stage.getDate(), stageFromSQL.getDate());
+    assertEquals(2, stageFromSQL.goalsOf(ortigoza));
   }
 
   private <T> T saveAndRetrieve(Class<T> clazz, T entity) {

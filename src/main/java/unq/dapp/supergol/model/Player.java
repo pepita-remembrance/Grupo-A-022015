@@ -57,4 +57,19 @@ public class Player extends Persistable {
   public Position getPosition() {
     return position;
   }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    Player player = (Player) o;
+
+    return !(getId() != 0 ? !(getId() == player.getId()) : player.getId() != 0);
+  }
+
+  @Override
+  public int hashCode() {
+    return Long.hashCode(getId());
+  }
 }

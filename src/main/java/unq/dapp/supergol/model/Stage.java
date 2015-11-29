@@ -1,14 +1,21 @@
 package unq.dapp.supergol.model;
 
-import java.util.*;
+import unq.dapp.supergol.model.repositories.Persistable;
+
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.MapKeyJoinColumn;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
-public class Stage {
-  public Date getDate() {
-    return date;
-  }
-
+@Entity
+public class Stage extends Persistable {
   private Date date;
+
+  @ElementCollection
+  @MapKeyJoinColumn(name = "player_id")
   private Map<Player, Integer> goals = new HashMap<>();
 
   public static Stage ofDate(Date date) {
@@ -18,12 +25,16 @@ public class Stage {
     return stage;
   }
 
+  public Date getDate() {
+    return date;
+  }
+
   public void addGoals(Player player, Integer quantity) {
     goals.put(player, quantity);
   }
 
   public int goalsOf(Player player) {
-    return goalsOf(goalAuthor -> goalAuthor == player);
+    return goalsOf(goalAuthor -> goalAuthor.equals(player));
   }
 
   private int goalsOf(Predicate<Player> predicate) {
