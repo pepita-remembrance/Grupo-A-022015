@@ -53,18 +53,44 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
       Team mataderos = Team.named("Los maravillosos de Mataderos");
       Team flores = Team.named("Los heroes de Flores");
 
-      Stage stage = Stage.ofDate(LocalDate.of(2015, Month.AUGUST, 13));
-      Match.versus(stage, villaLuro, floresta);
-      Match.versus(stage, mataderos, flores);
-
       leagueRepo.add(
         League.withAllowedTeams(2, 4, "Champion liga")
           .addTeam(villaLuro)
           .addTeam(floresta)
+          .addTeam(flores)
           .addTeam(mataderos)
-          .addStage(stage)
+          .addStage(
+            newStage(LocalDate.of(2015, Month.AUGUST, 13),
+              new Pair<>(villaLuro, floresta),
+              new Pair<>(mataderos, flores)
+            )
+          )
+          .addStage(
+            newStage(LocalDate.of(2015, Month.AUGUST, 20),
+              new Pair<>(villaLuro, flores),
+              new Pair<>(mataderos, floresta)
+            )
+          )
+          .addStage(
+            newStage(LocalDate.of(2015, Month.AUGUST, 27),
+              new Pair<>(mataderos, villaLuro),
+              new Pair<>(flores, floresta)
+            )
+          )
       );
     });
+  }
+
+  @SafeVarargs
+  private final Stage newStage(LocalDate date, Pair<Team, Team>... matches) {
+    Stage stage = Stage.ofDate(date);
+
+    Arrays.asList(matches)
+      .stream()
+      .map(it -> Match.versus(stage, it.getKey(), it.getValue()))
+      .forEach(it -> getRepository(Match.class).add(it));
+
+    return stage;
   }
 
   @SafeVarargs
