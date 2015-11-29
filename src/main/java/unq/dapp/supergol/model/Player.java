@@ -65,7 +65,7 @@ public class Player extends Persistable {
 
     Player player = (Player) o;
 
-    return !(getId() != 0 ? !(getId() == player.getId()) : player.getId() != 0);
+    return getId() != 0 && getId() == player.getId();
   }
 
   @Override
