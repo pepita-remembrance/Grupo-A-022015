@@ -1,4 +1,4 @@
-package unq.dapp.supergol.dependencyInjection;
+package unq.dapp.supergol.server.dependencyInjection;
 
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;

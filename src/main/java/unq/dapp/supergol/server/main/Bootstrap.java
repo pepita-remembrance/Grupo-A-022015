@@ -1,10 +1,10 @@
-package unq.dapp.supergol.main;
+package unq.dapp.supergol.server.main;
 
 import javafx.util.Pair;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
-import unq.dapp.supergol.dependencyInjection.DI;
-import unq.dapp.supergol.dependencyInjection.WithProductionDependencies;
+import unq.dapp.supergol.server.dependencyInjection.DI;
+import unq.dapp.supergol.server.dependencyInjection.WithProductionDependencies;
 import unq.dapp.supergol.model.*;
 import unq.dapp.supergol.model.repositories.Repository;
 

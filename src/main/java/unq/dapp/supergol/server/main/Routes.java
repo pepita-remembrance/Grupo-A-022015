@@ -1,8 +1,8 @@
-package unq.dapp.supergol.main;
+package unq.dapp.supergol.server.main;
 
-import unq.dapp.supergol.controllers.CRUDController;
-import unq.dapp.supergol.dependencyInjection.DI;
-import unq.dapp.supergol.dependencyInjection.WithProductionDependencies;
+import unq.dapp.supergol.server.controllers.CRUDController;
+import unq.dapp.supergol.server.dependencyInjection.DI;
+import unq.dapp.supergol.server.dependencyInjection.WithProductionDependencies;
 import unq.dapp.supergol.model.League;
 import unq.dapp.supergol.model.Player;
 

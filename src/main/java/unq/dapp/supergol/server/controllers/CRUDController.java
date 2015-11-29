@@ -1,8 +1,8 @@
-package unq.dapp.supergol.controllers;
+package unq.dapp.supergol.server.controllers;
 
 import unq.dapp.supergol.model.repositories.Repository;
 import unq.dapp.supergol.model.repositories.Persistable;
-import unq.dapp.supergol.serialization.JsonTransformer;
+import unq.dapp.supergol.server.serialization.JsonTransformer;
 
 import static spark.Spark.get;
 

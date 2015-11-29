@@ -1,4 +1,4 @@
-package unq.dapp.supergol.serialization;
+package unq.dapp.supergol.server.serialization;
 
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;

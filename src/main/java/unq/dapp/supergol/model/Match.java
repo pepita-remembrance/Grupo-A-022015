@@ -1,6 +1,6 @@
 package unq.dapp.supergol.model;
 
-import unq.dapp.supergol.serialization.JsonIgnore;
+import unq.dapp.supergol.server.serialization.JsonIgnore;
 import unq.dapp.supergol.model.repositories.Persistable;
 
 import javax.persistence.CascadeType;
