@@ -63,4 +63,11 @@ public class Team extends Persistable {
   public int scoreFor(Stage stage) {
     return players.stream().mapToInt(it -> it.scoreFor(stage)).sum();
   }
+
+  public static Team named(String name) {
+    Team team = new Team();
+    team.setName(name);
+
+    return team;
+  }
 }

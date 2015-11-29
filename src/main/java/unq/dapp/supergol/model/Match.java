@@ -1,21 +1,24 @@
 package unq.dapp.supergol.model;
 
-public class Match {
+import unq.dapp.supergol.model.repositories.Persistable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Match extends Persistable {
   private static final int TIE_SCORE = 1;
   private static final int WINNER_SCORE = 3;
   private static final int LOSER_SCORE = 0;
 
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Stage stage;
 
-  public Team getHomeTeam() {
-    return homeTeam;
-  }
-
-  public Team getAwayTeam() {
-    return awayTeam;
-  }
-
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Team homeTeam;
+
+  @OneToOne(cascade = CascadeType.PERSIST)
   private Team awayTeam;
 
   public static Match versus(Stage stage, Team homeTeam, Team awayTeam) {
@@ -25,6 +28,14 @@ public class Match {
     match.awayTeam = awayTeam;
 
     return match;
+  }
+
+  public Team getHomeTeam() {
+    return homeTeam;
+  }
+
+  public Team getAwayTeam() {
+    return awayTeam;
   }
 
   public int scoreFor(Team team) {
@@ -43,5 +54,9 @@ public class Match {
 
   private boolean isATie() {
     return homeTeam.scoreFor(stage) == awayTeam.scoreFor(stage);
+  }
+
+  public Stage getStage() {
+    return stage;
   }
 }

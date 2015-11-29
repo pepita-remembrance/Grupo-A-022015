@@ -3,6 +3,7 @@ package unq.dapp.supergol.model.persistence;
 import org.junit.Before;
 import org.junit.Test;
 import unq.dapp.supergol.model.*;
+import unq.dapp.supergol.model.repositories.Persistable;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -15,13 +16,22 @@ public class PersistenceTest extends BasePersistenceTest {
 
   private RealWorldTeam sanLorenzo;
   private Player ortigoza;
+  private Team losVengadoresDeFlores;
+  private Stage october30Stage;
 
   @Before
-  public void setUp() throws Exception {
+  public void setUp() {
     sanLorenzo = RealWorldTeam.named("San Lorenzo");
 
     ortigoza = Player.midfielder(sanLorenzo);
     ortigoza.setName("Nestor Ortigoza");
+
+    losVengadoresDeFlores = new Team();
+    losVengadoresDeFlores.setName("Los vengadores de Flores");
+    losVengadoresDeFlores.setLogoUrl("http://foo.com/logo.png");
+    losVengadoresDeFlores.addPlayer(ortigoza);
+
+    october30Stage = Stage.ofDate(Date.valueOf(LocalDate.of(2015, Month.OCTOBER, 30)));
   }
 
   @Test
@@ -42,11 +52,6 @@ public class PersistenceTest extends BasePersistenceTest {
 
   @Test
   public void teamsCanBePersisted() {
-    Team losVengadoresDeFlores = new Team();
-    losVengadoresDeFlores.setName("Los vengadores de Flores");
-    losVengadoresDeFlores.setLogoUrl("http://foo.com/logo.png");
-    losVengadoresDeFlores.addPlayer(ortigoza);
-
     Team teamFromSQL = saveAndRetrieve(Team.class, losVengadoresDeFlores);
 
     assertEquals(losVengadoresDeFlores.getName(), teamFromSQL.getName());
@@ -56,21 +61,32 @@ public class PersistenceTest extends BasePersistenceTest {
 
   @Test
   public void stagesCanBePersisted() {
-    Stage stage = Stage.ofDate(Date.valueOf(LocalDate.of(2015, Month.OCTOBER, 30)));
-    stage.addGoals(ortigoza, 2);
+    october30Stage.addGoals(ortigoza, 2);
 
     persist(ortigoza);
-    Stage stageFromSQL = saveAndRetrieve(Stage.class, stage);
+    Stage stageFromSQL = saveAndRetrieve(Stage.class, october30Stage);
 
-    assertEquals(stage.getDate(), stageFromSQL.getDate());
+    assertEquals(october30Stage.getDate(), stageFromSQL.getDate());
     assertEquals(2, stageFromSQL.goalsOf(ortigoza));
   }
 
-  private <T> T saveAndRetrieve(Class<T> clazz, T entity) {
+  @Test
+  public void matchesCanBePersisted() {
+    Team losPibes = Team.named("Los pibes de Villa Luro");
+    Match match = Match.versus(october30Stage, losVengadoresDeFlores, losPibes);
+
+    Match matchFromSQL = saveAndRetrieve(Match.class, match);
+
+    assertEquals(losVengadoresDeFlores.getName(), matchFromSQL.getHomeTeam().getName());
+    assertEquals(losPibes.getName(), matchFromSQL.getAwayTeam().getName());
+    assertEquals(october30Stage.getDate(), matchFromSQL.getStage().getDate());
+  }
+
+  private <T extends Persistable> T saveAndRetrieve(Class<T> clazz, T entity) {
     persist(entity);
     entityManager().getTransaction().commit();
     entityManager().clear();
 
-    return find(clazz, 1l);
+    return find(clazz, entity.getId());
   }
 }
