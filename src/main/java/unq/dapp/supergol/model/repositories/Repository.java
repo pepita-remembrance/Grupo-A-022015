@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class Repository<T extends Entity> {
+public class Repository<T extends Persistable> {
   private Collection<T> elements = new ArrayList<T>();
 
   public Collection<T> all() {

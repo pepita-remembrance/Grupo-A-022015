@@ -5,7 +5,6 @@ import org.junit.Test;
 import unq.dapp.supergol.model.exceptions.UnexistentPlayerException;
 import unq.dapp.supergol.model.repositories.Repository;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
@@ -29,9 +28,7 @@ public class StageImportTest {
     mancuello = Player.midfielder(independiente);
     saveWithId(mancuello, 2);
 
-    stage = Stage.ofDate(
-      Date.valueOf(LocalDate.of(2015, 10, 25))
-    );
+    stage = Stage.ofDate(LocalDate.of(2015, 10, 25));
   }
 
   @Test(expected = UnexistentPlayerException.class)
@@ -55,11 +52,11 @@ public class StageImportTest {
   }
 
   @Test
-  public void whenExecutedTheIdIsSet() {
+  public void whenExecutedTheCodeIsSet() {
     StageImport stageImport = new StageImport(repo, "28\n1,Forward,3\n2,Midfielder,1", stage);
     stageImport.execute();
 
-    assertEquals(28, stageImport.getId());
+    assertEquals(28, stageImport.getCode());
   }
 
   private void saveWithId(Player player, int id) {

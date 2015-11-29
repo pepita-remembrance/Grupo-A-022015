@@ -1,6 +1,10 @@
 package unq.dapp.supergol.model;
 
-public class RealWorldTeam {
+import unq.dapp.supergol.model.repositories.Persistable;
+import javax.persistence.Entity;
+
+@Entity
+public class RealWorldTeam extends Persistable {
   public String getName() {
     return name;
   }
@@ -12,14 +16,5 @@ public class RealWorldTeam {
     realWorldTeam.name = name;
 
     return realWorldTeam;
-  }
-
-  @Override
-  public String toString() {
-    return name;
-  }
-
-  public boolean includes(Player player) {
-    return player.getRealWorldTeam() == this;
   }
 }

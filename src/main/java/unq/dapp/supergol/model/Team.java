@@ -1,25 +1,41 @@
 package unq.dapp.supergol.model;
 
 import unq.dapp.supergol.model.exceptions.InvalidTeamFormationException;
+import unq.dapp.supergol.model.repositories.Persistable;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 
 import static java.lang.Math.toIntExact;
 
-public class Team {
+@Entity
+public class Team extends Persistable {
+  @OneToMany(cascade = CascadeType.PERSIST)
+  @JoinColumn(name = "team_id")
   private Collection<Player> players = new ArrayList<>();
+
+  private String name;
+  private String logoUrl;
 
   public String getName() {
     return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getLogoUrl() {
     return logoUrl;
   }
 
-  private String name;
-  private String logoUrl;
+  public void setLogoUrl(String logoUrl) {
+    this.logoUrl = logoUrl;
+  }
 
   public Collection<Player> getPlayers() {
     return players;
@@ -46,5 +62,12 @@ public class Team {
 
   public int scoreFor(Stage stage) {
     return players.stream().mapToInt(it -> it.scoreFor(stage)).sum();
+  }
+
+  public static Team named(String name) {
+    Team team = new Team();
+    team.setName(name);
+
+    return team;
   }
 }
