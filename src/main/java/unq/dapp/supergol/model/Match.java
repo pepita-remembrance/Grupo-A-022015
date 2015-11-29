@@ -1,9 +1,11 @@
 package unq.dapp.supergol.model;
 
+import unq.dapp.supergol.serialization.JsonIgnore;
 import unq.dapp.supergol.model.repositories.Persistable;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -12,7 +14,8 @@ public class Match extends Persistable {
   private static final int WINNER_SCORE = 3;
   private static final int LOSER_SCORE = 0;
 
-  @OneToOne(cascade = CascadeType.PERSIST)
+  @ManyToOne(cascade = CascadeType.PERSIST)
+  @JsonIgnore
   private Stage stage;
 
   @OneToOne(cascade = CascadeType.PERSIST)
