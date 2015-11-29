@@ -1,18 +1,32 @@
 package unq.dapp.supergol.model;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import unq.dapp.supergol.model.exceptions.NotEnoughTeamsException;
 import unq.dapp.supergol.model.exceptions.TooManyTeamsException;
+import unq.dapp.supergol.model.repositories.Persistable;
 
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class League {
+@Entity
+public class League extends Persistable {
   private String name;
   private int minTeams;
   private int maxTeams;
+
+  @OneToMany
+  @Cascade(CascadeType.PERSIST)
   private Collection<Team> teams = new ArrayList<>();
-  private List<Stage> stages;
+
+  @OneToMany
+  @Cascade(CascadeType.PERSIST)
+  @JoinColumn(name = "league_id")
+  private List<Stage> stages = new ArrayList<>();
 
   public static League withAllowedTeams(int minTeams, int maxTeams) {
     League league = new League();
@@ -59,5 +73,9 @@ public class League {
 
   public List<Stage> getStages() {
     return stages;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 }

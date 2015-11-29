@@ -82,6 +82,22 @@ public class PersistenceTest extends BasePersistenceTest {
     assertEquals(october30Stage.getDate(), matchFromSQL.getStage().getDate());
   }
 
+  @Test
+  public void leaguesCanBePersisted() {
+    League league = League.withAllowedTeams(2, 10);
+    league.setName("Champion Liga");
+    league.addTeam(new Team()).addTeam(new Team());
+    league.addStage(new Stage());
+
+    League leagueFromSQL = saveAndRetrieve(League.class, league);
+
+    assertEquals(league.getName(), leagueFromSQL.getName());
+    assertEquals(league.getMinTeams(), leagueFromSQL.getMinTeams());
+    assertEquals(league.getMaxTeams(), leagueFromSQL.getMaxTeams());
+    assertEquals(2, leagueFromSQL.getTeams().size());
+    assertEquals(1, leagueFromSQL.getStages().size());
+  }
+
   private <T extends Persistable> T saveAndRetrieve(Class<T> clazz, T entity) {
     persist(entity);
     entityManager().getTransaction().commit();
