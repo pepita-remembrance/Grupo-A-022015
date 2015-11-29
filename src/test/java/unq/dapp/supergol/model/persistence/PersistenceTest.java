@@ -83,10 +83,9 @@ public class PersistenceTest extends BasePersistenceTest {
 
   @Test
   public void leaguesCanBePersisted() {
-    League league = League.withAllowedTeams(2, 10);
-    league.setName("Champion Liga");
-    league.addTeam(new Team()).addTeam(new Team());
-    league.addStage(Stage.ofDate(LocalDate.now()));
+    League league = League.withAllowedTeams(2, 10, "Champion Liga")
+      .addTeam(new Team()).addTeam(new Team())
+      .addStage(Stage.ofDate(LocalDate.now()));
 
     League leagueFromSQL = saveAndRetrieve(League.class, league);
 

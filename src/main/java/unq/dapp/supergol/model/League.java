@@ -28,10 +28,11 @@ public class League extends Persistable {
   @JoinColumn(name = "league_id")
   private List<Stage> stages = new ArrayList<>();
 
-  public static League withAllowedTeams(int minTeams, int maxTeams) {
+  public static League withAllowedTeams(int minTeams, int maxTeams, String name) {
     League league = new League();
     league.minTeams = minTeams;
     league.maxTeams = maxTeams;
+    league.name = name;
 
     return league;
   }

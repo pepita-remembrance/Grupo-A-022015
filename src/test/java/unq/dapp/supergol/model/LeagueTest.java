@@ -14,7 +14,7 @@ public class LeagueTest {
 
   @Before
   public void setUp() {
-    league = League.withAllowedTeams(2, 3);
+    league = League.withAllowedTeams(2, 3, "any");
   }
 
   @Rule
