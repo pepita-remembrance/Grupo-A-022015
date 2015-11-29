@@ -1,8 +1,9 @@
 package unq.dapp.supergol.helpers;
 
-import unq.dapp.supergol.model.Player;
-import unq.dapp.supergol.model.Position;
-import unq.dapp.supergol.model.RealWorldTeam;
+import unq.dapp.supergol.model.*;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 public class DomainFactory {
   public static Player anyPlayer(Position position) {
@@ -11,5 +12,13 @@ public class DomainFactory {
 
   public static RealWorldTeam anyRealWorldTeam() {
     return RealWorldTeam.named("Anyone");
+  }
+
+  public static Stage anyStage() {
+    return Stage.ofDate(Date.valueOf(LocalDate.now()));
+  }
+
+  public static Team anyTeam() {
+    return new Team();
   }
 }

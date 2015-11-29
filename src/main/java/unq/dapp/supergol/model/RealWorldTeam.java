@@ -1,6 +1,10 @@
 package unq.dapp.supergol.model;
 
 public class RealWorldTeam {
+  public String getName() {
+    return name;
+  }
+
   private String name;
 
   public static RealWorldTeam named(String name) {
@@ -13,5 +17,9 @@ public class RealWorldTeam {
   @Override
   public String toString() {
     return name;
+  }
+
+  public boolean includes(Player player) {
+    return player.getRealWorldTeam() == this;
   }
 }

@@ -1,45 +1,47 @@
 package unq.dapp.supergol.model;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Predicate;
-
 public class Match {
-  private RealWorldTeam homeTeam;
-  private RealWorldTeam awayTeam;
+  private static final int TIE_SCORE = 1;
+  private static final int WINNER_SCORE = 3;
+  private static final int LOSER_SCORE = 0;
 
-  private Map<Player, Integer> goals = new HashMap<>();
+  private Stage stage;
 
-  public static Match versus(RealWorldTeam homeTeam, RealWorldTeam awayTeam) {
+  public Team getHomeTeam() {
+    return homeTeam;
+  }
+
+  public Team getAwayTeam() {
+    return awayTeam;
+  }
+
+  private Team homeTeam;
+  private Team awayTeam;
+
+  public static Match versus(Stage stage, Team homeTeam, Team awayTeam) {
     Match match = new Match();
+    match.stage = stage;
     match.homeTeam = homeTeam;
     match.awayTeam = awayTeam;
 
     return match;
   }
 
-  public void addGoals(Player player, Integer quantity) {
-    this.goals.put(player, quantity);
+  public int scoreFor(Team team) {
+    if (isATie()) return TIE_SCORE;
+    if (isTheWinner(team)) return WINNER_SCORE;
+    return LOSER_SCORE;
   }
 
-  public int goalsOf(RealWorldTeam realWorldTeam) {
-    return goalsOf(player -> player.getRealWorldTeam() == realWorldTeam);
+  private boolean isTheWinner(Team team) {
+    return team.scoreFor(stage) > oppositeTeam(team).scoreFor(stage);
   }
 
-  public int goalsOf(Player player) {
-    return goalsOf(goalAuthor -> goalAuthor == player);
+  private Team oppositeTeam(Team team) {
+    return team == homeTeam ? awayTeam : homeTeam;
   }
 
-  public int goalsAgainst(RealWorldTeam realWorldTeam) {
-    return realWorldTeam == homeTeam
-      ? goalsOf(awayTeam)
-      : goalsOf(homeTeam);
-  }
-
-  private int goalsOf(Predicate<Player> predicate) {
-    return goals.entrySet().stream()
-      .filter(pair -> predicate.test(pair.getKey()))
-      .mapToInt(Map.Entry::getValue)
-      .sum();
+  private boolean isATie() {
+    return homeTeam.scoreFor(stage) == awayTeam.scoreFor(stage);
   }
 }

@@ -8,6 +8,7 @@ import unq.dapp.supergol.model.exceptions.InvalidTeamFormationException;
 
 import static org.junit.Assert.assertEquals;
 import static unq.dapp.supergol.helpers.DomainFactory.anyPlayer;
+import static unq.dapp.supergol.helpers.DomainFactory.anyStage;
 
 public class TeamTest {
 
@@ -54,22 +55,19 @@ public class TeamTest {
   }
 
   @Test
-  public void theScoreForAMatchIsTheSumOfThePlayersScore() {
-    RealWorldTeam argentina = RealWorldTeam.named("Argentina");
-    Player diMaria = Player.midfielder(argentina);
-    Player rojo = Player.defender(argentina);
+  public void theScoreForAStageIsTheSumOfThePlayersScore() {
+    Player diMaria = anyPlayer(Position.MIDFIELDER);
+    Player rojo = anyPlayer(Position.DEFENDER);
+    Player neymar = anyPlayer(Position.FORWARD);
 
-    RealWorldTeam brazil = RealWorldTeam.named("Brazil");
-    Player neymar = Player.forward(brazil);
-
-    Match match = Match.versus(argentina, brazil);
-    match.addGoals(diMaria, 2);
-    match.addGoals(rojo, 1);
-    match.addGoals(neymar, 2);
-    match.addGoals(Player.defender(argentina), 3);
+    Stage stage = anyStage();
+    stage.addGoals(diMaria, 2);
+    stage.addGoals(rojo, 1);
+    stage.addGoals(neymar, 2);
+    stage.addGoals(anyPlayer(Position.DEFENDER), 3);
 
     Team team = new Team().addPlayer(diMaria).addPlayer(rojo).addPlayer(neymar);
-    assertEquals(team.scoreFor(match), 7); //2 diMaria + 3 rojo + 2 neymar
+    assertEquals(team.scoreFor(stage), 7); //2 diMaria + 3 rojo + 2 neymar
   }
 
   private void addPlayersToTeam(Position position, int quantity) {

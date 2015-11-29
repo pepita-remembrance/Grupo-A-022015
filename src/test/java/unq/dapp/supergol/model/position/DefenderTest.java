@@ -2,32 +2,31 @@ package unq.dapp.supergol.model.position;
 
 import org.junit.Before;
 import org.junit.Test;
-import unq.dapp.supergol.model.Match;
 import unq.dapp.supergol.model.Player;
-import unq.dapp.supergol.model.RealWorldTeam;
+import unq.dapp.supergol.model.Position;
+import unq.dapp.supergol.model.Stage;
 
 import static org.junit.Assert.assertEquals;
+import static unq.dapp.supergol.helpers.DomainFactory.anyPlayer;
 
 public class DefenderTest {
   private Player rojo;
-  private Match match;
+  private Stage stage;
 
   @Before
   public void setUp() throws Exception {
-    RealWorldTeam argentina = RealWorldTeam.named("Argentina");
-
-    rojo = Player.defender(argentina);
-    match = Match.versus(argentina, RealWorldTeam.named("Switzerland"));
+    rojo = anyPlayer(Position.DEFENDER);
+    stage = new Stage();
   }
 
   @Test
   public void whenNoGoalsWereMadeTheScoreIs0() {
-    assertEquals(0, rojo.scoreFor(match));
+    assertEquals(0, rojo.scoreFor(stage));
   }
 
   @Test
   public void whenGoalsWereMade3PointAreScoredPerGoal() {
-    match.addGoals(rojo, 1);
-    assertEquals(3, rojo.scoreFor(match));
+    stage.addGoals(rojo, 1);
+    assertEquals(3, rojo.scoreFor(stage));
   }
 }
