@@ -2,7 +2,6 @@ package unq.dapp.supergol.helpers;
 
 import unq.dapp.supergol.model.*;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class DomainFactory {
@@ -15,7 +14,7 @@ public class DomainFactory {
   }
 
   public static Stage anyStage() {
-    return Stage.ofDate(Date.valueOf(LocalDate.now()));
+    return Stage.ofDate(LocalDate.now());
   }
 
   public static Team anyTeam() {

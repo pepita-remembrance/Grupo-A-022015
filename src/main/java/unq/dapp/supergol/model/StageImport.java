@@ -1,12 +1,13 @@
 package unq.dapp.supergol.model;
 
+import org.uqbarproject.jpa.java8.extras.convert.LocalDateConverter;
 import unq.dapp.supergol.model.exceptions.UnexistentPlayerException;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,9 @@ public class StageImport extends Persistable {
   private final Stage stage;
 
   private long code;
-  private Date createdAt;
+
+  @Convert(converter = LocalDateConverter.class)
+  private LocalDate createdAt;
 
   public StageImport(Repository<Player> playerRepo, String csv, Stage stage) {
     this.playerRepo = playerRepo;
@@ -40,7 +43,7 @@ public class StageImport extends Persistable {
   public void execute() {
     List<String> lines = Arrays.asList(csv.split("\n"));
 
-    createdAt = Date.valueOf(LocalDate.now());
+    createdAt = LocalDate.now();
     code = Long.parseLong(lines.get(0));
 
     tail(lines).forEach(line -> {
@@ -69,7 +72,7 @@ public class StageImport extends Persistable {
     return code;
   }
 
-  public Date getCreatedAt() {
+  public LocalDate getCreatedAt() {
     return createdAt;
   }
 }

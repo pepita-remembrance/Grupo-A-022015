@@ -5,7 +5,6 @@ import org.junit.Test;
 import unq.dapp.supergol.model.*;
 import unq.dapp.supergol.model.repositories.Persistable;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
 
@@ -31,7 +30,7 @@ public class PersistenceTest extends BasePersistenceTest {
     losVengadoresDeFlores.setLogoUrl("http://foo.com/logo.png");
     losVengadoresDeFlores.addPlayer(ortigoza);
 
-    october30Stage = Stage.ofDate(Date.valueOf(LocalDate.of(2015, Month.OCTOBER, 30)));
+    october30Stage = Stage.ofDate(LocalDate.of(2015, Month.OCTOBER, 30));
   }
 
   @Test
@@ -87,7 +86,7 @@ public class PersistenceTest extends BasePersistenceTest {
     League league = League.withAllowedTeams(2, 10);
     league.setName("Champion Liga");
     league.addTeam(new Team()).addTeam(new Team());
-    league.addStage(new Stage());
+    league.addStage(Stage.ofDate(LocalDate.now()));
 
     League leagueFromSQL = saveAndRetrieve(League.class, league);
 
