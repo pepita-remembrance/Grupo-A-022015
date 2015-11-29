@@ -17,13 +17,4 @@ public class RealWorldTeam extends Persistable {
 
     return realWorldTeam;
   }
-
-  @Override
-  public String toString() {
-    return name;
-  }
-
-  public boolean includes(Player player) {
-    return player.getRealWorldTeam() == this;
-  }
 }
