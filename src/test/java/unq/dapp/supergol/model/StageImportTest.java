@@ -55,11 +55,11 @@ public class StageImportTest {
   }
 
   @Test
-  public void whenExecutedTheIdIsSet() {
+  public void whenExecutedTheCodeIsSet() {
     StageImport stageImport = new StageImport(repo, "28\n1,Forward,3\n2,Midfielder,1", stage);
     stageImport.execute();
 
-    assertEquals(28, stageImport.getId());
+    assertEquals(28, stageImport.getCode());
   }
 
   private void saveWithId(Player player, int id) {
