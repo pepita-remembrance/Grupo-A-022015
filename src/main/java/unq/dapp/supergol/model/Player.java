@@ -2,13 +2,15 @@ package unq.dapp.supergol.model;
 
 import unq.dapp.supergol.model.repositories.Persistable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class Player extends Persistable {
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.PERSIST)
   private RealWorldTeam realWorldTeam;
+
   private Position position;
   private String name;
 

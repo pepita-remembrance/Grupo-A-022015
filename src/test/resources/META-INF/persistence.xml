@@ -8,6 +8,7 @@
 
     <class>unq.dapp.supergol.model.RealWorldTeam</class>
     <class>unq.dapp.supergol.model.Player</class>
+    <class>unq.dapp.supergol.model.Team</class>
 
     <properties>
       <property name="hibernate.archive.autodetection" value="class" />

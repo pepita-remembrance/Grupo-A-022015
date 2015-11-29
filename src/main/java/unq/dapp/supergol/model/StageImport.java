@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.lang.Math.toIntExact;
-import static unq.dapp.supergol.utils.ListUtils.tail;
+import static unq.dapp.supergol.utils.CollectionUtils.tail;
 
 public class StageImport {
   private static final int PLAYER_POSITION = 0;
