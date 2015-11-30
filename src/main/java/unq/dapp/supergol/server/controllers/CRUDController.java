@@ -1,16 +1,16 @@
 package unq.dapp.supergol.server.controllers;
 
+import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
+import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import unq.dapp.supergol.model.exceptions.EntityNotFoundException;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;
 import unq.dapp.supergol.server.serialization.ErrorMessage;
 import unq.dapp.supergol.server.serialization.JsonTransformer;
 
-import static spark.Spark.before;
-import static spark.Spark.exception;
-import static spark.Spark.get;
+import static spark.Spark.*;
 
-public class CRUDController<TEntity extends Persistable> {
+public class CRUDController<TEntity extends Persistable> implements WithGlobalEntityManager, TransactionalOps {
   private final Class<TEntity> clazz;
   private final Repository<TEntity> repository;
   private final JsonTransformer transformer;
@@ -38,6 +38,17 @@ public class CRUDController<TEntity extends Persistable> {
       },
       transformer
     );
+
+    post(baseUrl, (request, response) -> {
+      TEntity entity = transformer.parse(clazz, request.body());
+
+      withTransaction(() -> repository.add(entity));
+
+      response.status(201);
+      return String.format("{ \"id\": \"%s\" }", entity.getId());
+    });
+
+    after((request, response) -> commitTransaction());
 
     exception(EntityNotFoundException.class, (exception, request, response) -> {
       response.status(404);
