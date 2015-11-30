@@ -23,7 +23,7 @@ public class Routes implements DI, WithProductionDependencies {
   }
 
   private void registerRoutes() {
-    new CRUDController<>(getRepository(League.class)).registerRoutes("/leagues");
-    new CRUDController<>(getRepository(Player.class)).registerRoutes("/players");
+    new CRUDController<>(League.class, getRepository(League.class)).registerRoutes("/leagues");
+    new CRUDController<>(Player.class, getRepository(Player.class)).registerRoutes("/players");
   }
 }
