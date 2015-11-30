@@ -95,15 +95,13 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
 
   @SafeVarargs
   private final void newTeam(String name, Pair<Position, String>... players) {
-    RealWorldTeam sanLorenzo = RealWorldTeam.named(name);
-
     Arrays.asList(players)
       .stream()
-      .map(it -> newPlayer(it.getKey(), it.getValue(), sanLorenzo))
+      .map(it -> newPlayer(it.getKey(), it.getValue(), name))
       .forEach(it -> getRepository(Player.class).add(it));
   }
 
-  private Player newPlayer(Position position, String name, RealWorldTeam team) {
+  private Player newPlayer(Position position, String name, String team) {
     Player player = Player.ofTeam(position, team);
     player.setName(name);
 

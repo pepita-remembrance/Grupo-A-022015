@@ -21,12 +21,10 @@ public class StageImportTest {
   public void setUp() {
     repo = new CollectionBasedRepository<>();
 
-    RealWorldTeam racing = anyRealWorldTeam();
-    milito = Player.forward(racing);
+    milito = Player.forward(anyRealWorldTeam());
     saveWithId(milito, 1);
 
-    RealWorldTeam independiente = anyRealWorldTeam();
-    mancuello = Player.midfielder(independiente);
+    mancuello = Player.midfielder(anyRealWorldTeam());
     saveWithId(mancuello, 2);
 
     stage = Stage.ofDate(LocalDate.of(2015, 10, 25));

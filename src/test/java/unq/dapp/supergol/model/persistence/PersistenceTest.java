@@ -13,16 +13,13 @@ import static unq.dapp.supergol.utils.CollectionUtils.anyOne;
 
 public class PersistenceTest extends BasePersistenceTest {
 
-  private RealWorldTeam sanLorenzo;
   private Player ortigoza;
   private Team losVengadoresDeFlores;
   private Stage october30Stage;
 
   @Before
   public void setUp() {
-    sanLorenzo = RealWorldTeam.named("San Lorenzo");
-
-    ortigoza = Player.midfielder(sanLorenzo);
+    ortigoza = Player.midfielder("San Lorenzo");
     ortigoza.setName("Nestor Ortigoza");
 
     losVengadoresDeFlores = new Team();
@@ -34,19 +31,12 @@ public class PersistenceTest extends BasePersistenceTest {
   }
 
   @Test
-  public void realWorldTeamsCanBePersisted() {
-    RealWorldTeam sanLorenzoFromSQL = saveAndRetrieve(RealWorldTeam.class, sanLorenzo);
-
-    assertEquals(sanLorenzo.getName(), sanLorenzoFromSQL.getName());
-  }
-
-  @Test
   public void playersCanBePersisted() {
     Player ortigozaFromSQL = saveAndRetrieve(Player.class, ortigoza);
 
     assertEquals(ortigoza.getName(), ortigozaFromSQL.getName());
     assertEquals(ortigoza.getPosition(), ortigozaFromSQL.getPosition());
-    assertEquals(sanLorenzo.getName(), ortigozaFromSQL.getRealWorldTeam().getName());
+    assertEquals(ortigoza.getRealWorldTeam(), ortigozaFromSQL.getRealWorldTeam());
   }
 
   @Test
