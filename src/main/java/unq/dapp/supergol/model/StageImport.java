@@ -2,8 +2,8 @@ package unq.dapp.supergol.model;
 
 import org.uqbarproject.jpa.java8.extras.convert.LocalDateConverter;
 import unq.dapp.supergol.model.exceptions.UnexistentPlayerException;
-import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;
+import unq.dapp.supergol.model.repositories.Persistable;
 
 import javax.persistence.Convert;
 import javax.persistence.Entity;

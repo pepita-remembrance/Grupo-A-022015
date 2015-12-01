@@ -3,12 +3,11 @@ package unq.dapp.supergol.model;
 import org.uqbarproject.jpa.java8.extras.convert.LocalDateConverter;
 import unq.dapp.supergol.model.repositories.Persistable;
 
-import javax.persistence.Convert;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.MapKeyJoinColumn;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -20,6 +19,9 @@ public class Stage extends Persistable {
   @ElementCollection
   @MapKeyJoinColumn(name = "player_id")
   private Map<Player, Integer> goals = new HashMap<>();
+
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "stage")
+  private List<Match> matches = new ArrayList<>();
 
   public static Stage ofDate(LocalDate date) {
     Stage stage = new Stage();

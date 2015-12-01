@@ -9,8 +9,8 @@ public class DomainFactory {
     return Player.ofTeam(position, anyRealWorldTeam());
   }
 
-  public static RealWorldTeam anyRealWorldTeam() {
-    return RealWorldTeam.named("Anyone");
+  public static String anyRealWorldTeam() {
+    return "Anyone";
   }
 
   public static Stage anyStage() {

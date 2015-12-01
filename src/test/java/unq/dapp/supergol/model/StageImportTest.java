@@ -3,6 +3,7 @@ package unq.dapp.supergol.model;
 import org.junit.Before;
 import org.junit.Test;
 import unq.dapp.supergol.model.exceptions.UnexistentPlayerException;
+import unq.dapp.supergol.model.repositories.CollectionBasedRepository;
 import unq.dapp.supergol.model.repositories.Repository;
 
 import java.time.LocalDate;
@@ -18,14 +19,12 @@ public class StageImportTest {
 
   @Before
   public void setUp() {
-    repo = new Repository<>();
+    repo = new CollectionBasedRepository<>();
 
-    RealWorldTeam racing = anyRealWorldTeam();
-    milito = Player.forward(racing);
+    milito = Player.forward(anyRealWorldTeam());
     saveWithId(milito, 1);
 
-    RealWorldTeam independiente = anyRealWorldTeam();
-    mancuello = Player.midfielder(independiente);
+    mancuello = Player.midfielder(anyRealWorldTeam());
     saveWithId(mancuello, 2);
 
     stage = Stage.ofDate(LocalDate.of(2015, 10, 25));
