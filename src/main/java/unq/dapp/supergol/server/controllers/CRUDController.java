@@ -22,7 +22,7 @@ public class CRUDController<TEntity extends Persistable> implements WithGlobalEn
   }
 
   public void registerRoutes(String baseUrl) {
-    before((request, response) -> response.type("application/json"));
+    before(baseUrl, (request, response) -> response.type("application/json"));
 
     get(
       baseUrl,
@@ -48,7 +48,7 @@ public class CRUDController<TEntity extends Persistable> implements WithGlobalEn
       return String.format("{ \"id\": \"%s\" }", entity.getId());
     });
 
-    after((request, response) -> commitTransaction());
+    after(baseUrl, (request, response) -> commitTransaction());
 
     exception(EntityNotFoundException.class, (exception, request, response) -> {
       response.status(404);
