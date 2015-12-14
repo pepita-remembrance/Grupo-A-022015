@@ -36,6 +36,7 @@ public class CRUDController<TEntity extends Persistable>
   }
 
   public void registerRoutes(String baseUrl) {
+    enableCORS("*", "*", "*");
 
     withInterceptors(
       jsonResponseType(),
