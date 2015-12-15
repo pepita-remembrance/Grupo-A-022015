@@ -14,6 +14,8 @@ import unq.dapp.supergol.server.interceptors.WithLoggerInterceptor;
 import unq.dapp.supergol.server.serialization.ErrorMessage;
 import unq.dapp.supergol.server.serialization.JsonTransformer;
 
+import java.util.function.Function;
+
 import static spark.Spark.*;
 
 public class CRUDController<TEntity extends Persistable>
@@ -78,21 +80,16 @@ public class CRUDController<TEntity extends Persistable>
       return String.format("{ \"id\": \"%s\" }", entity.getId());
     });
 
-
     after(baseUrl, (request, response) -> commitTransaction());
 
-    exception(EntityNotFoundException.class, (exception, request, response) -> {
-      response.status(404);
-      response.body(transformer.render(new ErrorMessage(exception)));
-    });
+    addExceptionHandler(EntityNotFoundException.class, (exception) -> 404);
+    addExceptionHandler(DomainException.class, (exception) -> 400);
+    addExceptionHandler(HaltException.class, HaltException::getStatusCode);
+  }
 
-    exception(HaltException.class, (exception, request, response) -> {
-      response.status(((HaltException)exception).getStatusCode());
-      response.body(transformer.render(new ErrorMessage(exception)));
-    });
-
-    exception(DomainException.class, (exception, request, response) -> {
-      response.status(400);
+  private <T extends Exception> void addExceptionHandler(Class<T> exceptionClass, Function<T, Integer> getStatus) {
+    exception(exceptionClass, (exception, request, response) -> {
+      response.status(getStatus.apply((T) exception));
       response.body(transformer.render(new ErrorMessage(exception)));
     });
   }
