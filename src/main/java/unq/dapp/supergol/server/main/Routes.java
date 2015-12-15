@@ -7,6 +7,7 @@ import unq.dapp.supergol.model.Team;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.server.controllers.CRUDController;
 import unq.dapp.supergol.server.controllers.StageController;
+import unq.dapp.supergol.server.controllers.TeamController;
 import unq.dapp.supergol.server.dependencyInjection.DI;
 import unq.dapp.supergol.server.dependencyInjection.WithProductionDependencies;
 
@@ -28,7 +29,9 @@ public class Routes implements DI, WithProductionDependencies {
   private void registerRoutes() {
     registerCrudEndpoint(League.class, "/leagues");
     registerCrudEndpoint(Player.class, "/players");
-    registerCrudEndpoint(Team.class, "/teams");
+
+    new TeamController(Team.class, getRepository(Team.class), getRepository(League.class))
+      .registerRoutes("/teams");
 
     new StageController(Stage.class, getRepository(Stage.class), getRepository(Player.class))
       .registerRoutes("/stages");

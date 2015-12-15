@@ -26,7 +26,7 @@ public class TeamController extends CRUDController<Team> {
       return leagueRepository.all().stream()
         .map(it -> new Result(it, it.scoreFor(team)))
         .collect(Collectors.toList());
-    });
+    }, transformer);
   }
 
   private class Result {
