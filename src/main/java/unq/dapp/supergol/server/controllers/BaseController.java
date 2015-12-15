@@ -17,16 +17,10 @@ public abstract class BaseController implements WithResponseTransformer {
     before((request,response)-> {
       response.raw().setHeader("Access-Control-Allow-Origin", "*");
       response.raw().setHeader("Access-Control-Request-Method", "*");
-      response.raw().setHeader("Access-Control-Allow-Headers",  "Origin, X-Requested-With, Content-Type, Accept");
+      response.raw().setHeader("Access-Control-Allow-Headers",  "Origin, X-Requested-With, Content-Type, Accept, Authorization");
       response.raw().setHeader("Access-Control-Allow-Methods",  "POST, GET, OPTIONS, PUT");
     });
 
-    options("/*", (request,response)->{
-//      response.raw().setHeader("Access-Control-Allow-Origin", "*");
-//      response.raw().setHeader("Access-Control-Request-Method", "*");
-//      response.raw().setHeader("Access-Control-Allow-Headers",  "*");
-//      response.raw().setHeader("Access-Control-Allow-Methods",  "POST, GET, OPTIONS, PUT");
-      return response;
-    });
+    options("/*", (request,response)-> response);
   }
 }
