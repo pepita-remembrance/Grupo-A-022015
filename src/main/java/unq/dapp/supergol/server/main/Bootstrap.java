@@ -21,37 +21,42 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
   public void run() {
     withTransaction(() -> {
       newTeam("Club Atletico San Lorenzo de Almagro",
-        new Pair<>(Position.GOALKEEPER, "Sebastian Torrico"),
-        new Pair<>(Position.DEFENDER, "Julio Alberto Buffarini"),
-        new Pair<>(Position.DEFENDER, "Mario Yepes"),
-        new Pair<>(Position.DEFENDER, "Emanuel Mas"),
-        new Pair<>(Position.MIDFIELDER, "Leandro Romagnoli"),
-        new Pair<>(Position.MIDFIELDER, "Nestor Ortigoza"),
-        new Pair<>(Position.MIDFIELDER, "Sebastian Blanco"),
-        new Pair<>(Position.MIDFIELDER, "Juan Ignacio Mercier"),
-        new Pair<>(Position.FORWARD, "Mauro Matas"),
-        new Pair<>(Position.FORWARD, "Hector Daniel Villalba"),
-        new Pair<>(Position.FORWARD, "Martin Cauteruccio"));
+        pair(Position.GOALKEEPER, "Sebastian Torrico"),
+        pair(Position.DEFENDER, "Julio Alberto Buffarini"),
+        pair(Position.DEFENDER, "Mario Yepes"),
+        pair(Position.DEFENDER, "Emanuel Mas"),
+        pair(Position.MIDFIELDER, "Leandro Romagnoli"),
+        pair(Position.MIDFIELDER, "Nestor Ortigoza"),
+        pair(Position.MIDFIELDER, "Sebastian Blanco"),
+        pair(Position.MIDFIELDER, "Juan Ignacio Mercier"),
+        pair(Position.FORWARD, "Mauro Matas"),
+        pair(Position.FORWARD, "Hector Daniel Villalba"),
+        pair(Position.FORWARD, "Martin Cauteruccio"));
 
       newTeam("Club Atletico Huracan",
-        new Pair<>(Position.GOALKEEPER, "Marcos Guillermo Diaz"),
-        new Pair<>(Position.DEFENDER, "Carlos Arano"),
-        new Pair<>(Position.DEFENDER, "Federico Mancinelli"),
-        new Pair<>(Position.DEFENDER, "Martin Nervo"),
-        new Pair<>(Position.MIDFIELDER, "Patricio Toranzo"),
-        new Pair<>(Position.MIDFIELDER, "Edson Puch"),
-        new Pair<>(Position.MIDFIELDER, "Sebastian Blanco"),
-        new Pair<>(Position.MIDFIELDER, "Juan Ignacio Mercier"),
-        new Pair<>(Position.FORWARD, "Mauro Matas"),
-        new Pair<>(Position.FORWARD, "Hector Daniel Villalba"),
-        new Pair<>(Position.FORWARD, "Martin Cauteruccio"));
+        pair(Position.GOALKEEPER, "Marcos Guillermo Diaz"),
+        pair(Position.DEFENDER, "Carlos Arano"),
+        pair(Position.DEFENDER, "Federico Mancinelli"),
+        pair(Position.DEFENDER, "Martin Nervo"),
+        pair(Position.MIDFIELDER, "Patricio Toranzo"),
+        pair(Position.MIDFIELDER, "Edson Puch"),
+        pair(Position.MIDFIELDER, "Sebastian Blanco"),
+        pair(Position.MIDFIELDER, "Juan Ignacio Mercier"),
+        pair(Position.FORWARD, "Mauro Matas"),
+        pair(Position.FORWARD, "Hector Daniel Villalba"),
+        pair(Position.FORWARD, "Martin Cauteruccio"));
 
       Repository<League> leagueRepo = getRepository(League.class);
 
       Team villaLuro = Team.named("Los pibes de Villa Luro");
+
       Team floresta = Team.named("Los invencibles de Floresta");
+
       Team mataderos = Team.named("Los maravillosos de Mataderos");
+      mataderos.setLogoUrl("http://media-cdn.tripadvisor.com/media/photo-s/03/7e/59/c9/feria-de-mataderos.jpg");
+
       Team flores = Team.named("Los heroes de Flores");
+      flores.setLogoUrl("http://sp3.fotolog.com/photo/3/0/70/merinali/1216751367742_f.jpg");
 
       leagueRepo.add(
         League.withAllowedTeams(2, 4, "Champion liga")
@@ -61,20 +66,20 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
           .addTeam(mataderos)
           .addStage(
             newStage(LocalDate.of(2015, Month.AUGUST, 13),
-              new Pair<>(villaLuro, floresta),
-              new Pair<>(mataderos, flores)
+              pair(villaLuro, floresta),
+              pair(mataderos, flores)
             )
           )
           .addStage(
             newStage(LocalDate.of(2015, Month.AUGUST, 20),
-              new Pair<>(villaLuro, flores),
-              new Pair<>(mataderos, floresta)
+              pair(villaLuro, flores),
+              pair(mataderos, floresta)
             )
           )
           .addStage(
             newStage(LocalDate.of(2015, Month.AUGUST, 27),
-              new Pair<>(mataderos, villaLuro),
-              new Pair<>(flores, floresta)
+              pair(mataderos, villaLuro),
+              pair(flores, floresta)
             )
           )
       );
@@ -106,5 +111,9 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
     player.setName(name);
 
     return player;
+  }
+
+  protected <U,V> Pair<U,V> pair(U u, V v){
+    return new Pair<>(u,v);
   }
 }
