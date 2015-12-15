@@ -19,8 +19,10 @@ public interface WithAuthInterceptor {
   );
 
   default Filter authenticationInterceptor(){
-    return (request,response)->{
-//      AuthInterceptorCompanion.getToken(request).ifPresent(AuthInterceptorCompanion::verify);
+    return (request,response)-> {
+      if (!request.requestMethod().equals("OPTIONS")) {
+        AuthInterceptorCompanion.getToken(request).ifPresent(AuthInterceptorCompanion::verify);
+      }
     };
   }
 
