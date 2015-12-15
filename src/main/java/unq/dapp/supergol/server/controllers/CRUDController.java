@@ -68,6 +68,16 @@ public class CRUDController<TEntity extends Persistable>
       return String.format("{ \"id\": \"%s\" }", entity.getId());
     });
 
+    put(baseUrl + "/:id", (request, response) -> {
+      TEntity entity = transformer.parse(clazz, request.body());
+
+      withTransaction(() -> repository.update(entity));
+
+      response.status(201);
+      return String.format("{ \"id\": \"%s\" }", entity.getId());
+    });
+
+
     after(baseUrl, (request, response) -> commitTransaction());
 
     exception(EntityNotFoundException.class, (exception, request, response) -> {

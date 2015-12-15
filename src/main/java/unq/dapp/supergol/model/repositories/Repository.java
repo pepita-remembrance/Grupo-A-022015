@@ -9,4 +9,6 @@ public interface Repository<T extends Persistable> {
   Optional<T> findById(long id);
 
   void add(T element);
+
+  void update(T element);
 }

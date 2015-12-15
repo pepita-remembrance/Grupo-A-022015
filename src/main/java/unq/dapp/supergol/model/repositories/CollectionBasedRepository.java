@@ -21,4 +21,10 @@ public class CollectionBasedRepository<T extends Persistable> implements Reposit
   public void add(T element) {
     elements.add(element);
   }
+
+  @Override
+  public void update(T element) {
+    elements.removeIf((e)-> element.getId()==e.getId());
+    elements.add(element);
+  }
 }

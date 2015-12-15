@@ -11,6 +11,10 @@ import unq.dapp.supergol.model.repositories.Repository;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Bootstrap implements DI, WithProductionDependencies, TransactionalOps, WithGlobalEntityManager {
 
@@ -33,7 +37,7 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
         pair(Position.FORWARD, "Hector Daniel Villalba"),
         pair(Position.FORWARD, "Martin Cauteruccio"));
 
-      newTeam("Club Atletico Huracan",
+      Collection<Player> aTeam = newTeam("Club Atletico Huracan",
         pair(Position.GOALKEEPER, "Marcos Guillermo Diaz"),
         pair(Position.DEFENDER, "Carlos Arano"),
         pair(Position.DEFENDER, "Federico Mancinelli"),
@@ -50,6 +54,7 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
 
       Team villaLuro = Team.named("Los pibes de Villa Luro");
 
+
       Team floresta = Team.named("Los invencibles de Floresta");
 
       Team mataderos = Team.named("Los maravillosos de Mataderos");
@@ -57,6 +62,7 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
 
       Team flores = Team.named("Los heroes de Flores");
       flores.setLogoUrl("http://sp3.fotolog.com/photo/3/0/70/merinali/1216751367742_f.jpg");
+      aTeam.forEach(flores::addPlayer);
 
       leagueRepo.add(
         League.withAllowedTeams(2, 4, "Champion liga")
@@ -99,11 +105,14 @@ public class Bootstrap implements DI, WithProductionDependencies, TransactionalO
   }
 
   @SafeVarargs
-  private final void newTeam(String name, Pair<Position, String>... players) {
-    Arrays.asList(players)
+  private final Collection<Player> newTeam(String name, Pair<Position, String>... players) {
+    List<Player> playersList = Arrays.asList(players)
       .stream()
-      .map(it -> newPlayer(it.getKey(), it.getValue(), name))
-      .forEach(it -> getRepository(Player.class).add(it));
+      .map(it -> newPlayer(it.getKey(), it.getValue(), name)).collect(Collectors.toList());
+
+    playersList.forEach(it -> getRepository(Player.class).add(it));
+
+    return playersList;
   }
 
   private Player newPlayer(Position position, String name, String team) {
