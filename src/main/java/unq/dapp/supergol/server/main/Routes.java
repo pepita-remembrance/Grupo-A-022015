@@ -1,5 +1,6 @@
 package unq.dapp.supergol.server.main;
 
+import unq.dapp.supergol.model.Team;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.server.controllers.CRUDController;
 import unq.dapp.supergol.server.dependencyInjection.DI;
@@ -25,6 +26,7 @@ public class Routes implements DI, WithProductionDependencies {
   private void registerRoutes() {
     registerCrudEndpoint(League.class, "/leagues");
     registerCrudEndpoint(Player.class, "/players");
+    registerCrudEndpoint(Team.class, "/teams");
   }
 
   private <T extends Persistable> void registerCrudEndpoint(Class<T> modelClazz, String route) {
