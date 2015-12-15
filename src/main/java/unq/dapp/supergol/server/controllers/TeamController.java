@@ -1,15 +1,19 @@
 package unq.dapp.supergol.server.controllers;
 
-import unq.dapp.supergol.model.Stage;
-import unq.dapp.supergol.model.StageImport;
+import unq.dapp.supergol.model.League;
 import unq.dapp.supergol.model.Team;
 import unq.dapp.supergol.model.repositories.Repository;
 
-import static spark.Spark.*;
+import java.util.stream.Collectors;
+
+import static spark.Spark.get;
 
 public class TeamController extends CRUDController<Team> {
-  public TeamController(Class<Team> clazz, Repository<Team> repository) {
+  private final Repository<League> leagueRepository;
+
+  public TeamController(Class<Team> clazz, Repository<Team> repository, Repository<League> leagueRepository) {
     super(clazz, repository);
+    this.leagueRepository = leagueRepository;
   }
 
   @Override
@@ -19,6 +23,19 @@ public class TeamController extends CRUDController<Team> {
     get(baseUrl + "/:id/results", (request, response) -> {
       Team team = getEntityFromRequest(request);
 
+      return leagueRepository.all().stream()
+        .map(it -> new Result(it, it.scoreFor(team)))
+        .collect(Collectors.toList());
     });
+  }
+
+  private class Result {
+    private final League league;
+    private final int score;
+
+    public Result(League league, int score) {
+      this.league = league;
+      this.score = score;
+    }
   }
 }

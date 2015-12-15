@@ -79,4 +79,8 @@ public class League extends Persistable {
   public void setName(String name) {
     this.name = name;
   }
+
+  public int scoreFor(Team team) {
+    return this.stages.stream().mapToInt(team::scoreFor).sum();
+  }
 }
