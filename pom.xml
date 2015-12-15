@@ -113,7 +113,8 @@
         <version>0.7.5.201505241946</version>
         <configuration>
           <excludes>
-            <exclude>unq/dapp/supergol/main/**/*</exclude>
+            <exclude>unq/dapp/supergol/server/main/**/*</exclude>
+            <exclude>unq/dapp/supergol/server/controllers/**/*</exclude>
           </excludes>
         </configuration>
         <executions>
