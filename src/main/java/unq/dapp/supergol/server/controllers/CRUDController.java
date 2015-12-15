@@ -2,27 +2,47 @@ package unq.dapp.supergol.server.controllers;
 
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
+import spark.HaltException;
 import unq.dapp.supergol.model.exceptions.EntityNotFoundException;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;
+import unq.dapp.supergol.server.dependencyInjection.WithJsonTransformer;
+import unq.dapp.supergol.server.interceptors.WithAuthInterceptor;
+import unq.dapp.supergol.server.interceptors.WithLoggerInterceptor;
 import unq.dapp.supergol.server.serialization.ErrorMessage;
 import unq.dapp.supergol.server.serialization.JsonTransformer;
 
 import static spark.Spark.*;
 
-public class CRUDController<TEntity extends Persistable> implements WithGlobalEntityManager, TransactionalOps {
+public class CRUDController<TEntity extends Persistable>
+
+  extends    BaseController
+
+  implements WithGlobalEntityManager,
+             TransactionalOps ,
+             WithAuthInterceptor,
+             WithLoggerInterceptor,
+             WithJsonTransformer
+{
+
   private final Class<TEntity> clazz;
   private final Repository<TEntity> repository;
   private final JsonTransformer transformer;
 
   public CRUDController(Class<TEntity> clazz, Repository<TEntity> repository) {
+    this.transformer = responseTransformer();
     this.clazz = clazz;
     this.repository = repository;
-    this.transformer = new JsonTransformer();
   }
 
   public void registerRoutes(String baseUrl) {
-    before(baseUrl, (request, response) -> response.type("application/json"));
+    enableCORS("*", "*", "*");
+
+    withInterceptors(
+      jsonResponseType(),
+      authenticationInterceptor(),
+      loggingInterceptor()
+    );
 
     get(
       baseUrl,
@@ -42,16 +62,31 @@ public class CRUDController<TEntity extends Persistable> implements WithGlobalEn
     post(baseUrl, (request, response) -> {
       TEntity entity = transformer.parse(clazz, request.body());
 
-      withTransaction(() -> repository.add(entity));
+      withTransaction(() -> repository.update(entity));
 
       response.status(201);
       return String.format("{ \"id\": \"%s\" }", entity.getId());
     });
 
+    put(baseUrl + "/:id", (request, response) -> {
+      TEntity entity = transformer.parse(clazz, request.body());
+
+      withTransaction(() -> repository.update(entity));
+
+      response.status(201);
+      return String.format("{ \"id\": \"%s\" }", entity.getId());
+    });
+
+
     after(baseUrl, (request, response) -> commitTransaction());
 
     exception(EntityNotFoundException.class, (exception, request, response) -> {
       response.status(404);
+      response.body(transformer.render(new ErrorMessage(exception)));
+    });
+
+    exception(HaltException.class, (exception, request, response) -> {
+      response.status(((HaltException)exception).getStatusCode());
       response.body(transformer.render(new ErrorMessage(exception)));
     });
   }

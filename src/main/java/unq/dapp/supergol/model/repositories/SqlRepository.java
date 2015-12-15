@@ -27,4 +27,9 @@ public class SqlRepository<TEntity extends Persistable> implements Repository<TE
   public void add(TEntity element) {
     persist(element);
   }
+
+  @Override
+  public void update(TEntity element) {
+    merge(element);
+  }
 }
