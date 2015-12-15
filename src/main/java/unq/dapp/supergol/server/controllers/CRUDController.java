@@ -3,6 +3,7 @@ package unq.dapp.supergol.server.controllers;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.HaltException;
+import spark.Request;
 import unq.dapp.supergol.model.exceptions.EntityNotFoundException;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;
@@ -26,8 +27,8 @@ public class CRUDController<TEntity extends Persistable>
 {
 
   private final Class<TEntity> clazz;
-  private final Repository<TEntity> repository;
-  private final JsonTransformer transformer;
+  protected final Repository<TEntity> repository;
+  protected final JsonTransformer transformer;
 
   public CRUDController(Class<TEntity> clazz, Repository<TEntity> repository) {
     this.transformer = responseTransformer();
@@ -53,8 +54,7 @@ public class CRUDController<TEntity extends Persistable>
     get(
       baseUrl + "/:id",
       (request, response) -> {
-        long id = Long.parseLong(request.params("id"));
-        return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
+        return getEntityFromRequest(request);
       },
       transformer
     );
@@ -89,5 +89,10 @@ public class CRUDController<TEntity extends Persistable>
       response.status(((HaltException)exception).getStatusCode());
       response.body(transformer.render(new ErrorMessage(exception)));
     });
+  }
+
+  protected TEntity getEntityFromRequest(Request request) {
+    long id = Long.parseLong(request.params("id"));
+    return repository.findById(id).orElseThrow(() -> new EntityNotFoundException(id));
   }
 }
