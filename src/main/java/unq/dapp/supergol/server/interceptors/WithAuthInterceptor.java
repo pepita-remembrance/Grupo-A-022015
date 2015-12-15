@@ -14,8 +14,8 @@ public interface WithAuthInterceptor {
 
   final Pattern      pattern = Pattern.compile("^Bearer$", Pattern.CASE_INSENSITIVE);
   final JWTVerifier verifier = new JWTVerifier(
-    new Base64(true).decode("YOUR_CLIENT_SECRET"),
-    "YOUR_CLIENT_ID"
+    new Base64(true).decode("DMSlFEMbvrwUFUfBDZae_6GdKzA9wtKxfXB6FtQ1uJKfhggvEmMRkBTGjlKjiTk7"),
+    "uYjeLTz1Jg7JFuNzmdCKvRZndOBErxPW"
   );
 
   default Filter authenticationInterceptor(){
@@ -37,7 +37,7 @@ public interface WithAuthInterceptor {
     }
 
     public static Optional<String> getToken(Request request){
-      String authorization = request.headers("authorization");
+      String authorization = request.headers("Authorization");
       if(authorization == null){
         halt(401, "Unauthorized: no authorization token present");
       }else{
