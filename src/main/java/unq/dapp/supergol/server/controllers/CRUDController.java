@@ -4,6 +4,7 @@ import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.transaction.TransactionalOps;
 import spark.HaltException;
 import spark.Request;
+import unq.dapp.supergol.model.exceptions.DomainException;
 import unq.dapp.supergol.model.exceptions.EntityNotFoundException;
 import unq.dapp.supergol.model.repositories.Persistable;
 import unq.dapp.supergol.model.repositories.Repository;
@@ -87,6 +88,11 @@ public class CRUDController<TEntity extends Persistable>
 
     exception(HaltException.class, (exception, request, response) -> {
       response.status(((HaltException)exception).getStatusCode());
+      response.body(transformer.render(new ErrorMessage(exception)));
+    });
+
+    exception(DomainException.class, (exception, request, response) -> {
+      response.status(400);
       response.body(transformer.render(new ErrorMessage(exception)));
     });
   }
