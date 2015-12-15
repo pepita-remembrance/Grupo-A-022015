@@ -62,7 +62,7 @@ public class CRUDController<TEntity extends Persistable>
     post(baseUrl, (request, response) -> {
       TEntity entity = transformer.parse(clazz, request.body());
 
-      withTransaction(() -> repository.add(entity));
+      withTransaction(() -> repository.update(entity));
 
       response.status(201);
       return String.format("{ \"id\": \"%s\" }", entity.getId());
